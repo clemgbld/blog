@@ -23,6 +23,6 @@ export const countArticlesInTopic = (
   selectedTopic: string,
   articles: Article[]
 ) =>
-  selectedTopic === "all articles"
+  selectedTopic === ALL_ARTICLES
     ? articles.length
     : articles.filter(({ topic }) => selectedTopic === topic).length;
