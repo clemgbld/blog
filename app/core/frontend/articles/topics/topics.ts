@@ -10,9 +10,11 @@ const allTopicsWithoutDuplicatesAndUndefined = pipe(
 export const allTopics = (articles: Article[]) =>
   allTopicsWithoutDuplicatesAndUndefined(articles);
 
+const ALL_ARTICLES = "all articles";
+
 export const selectArticlesBasedOnTopic = curry(
   (currentTopics: string[], articles: Article[]): Article[] =>
-    currentTopics.includes("all articles")
+    currentTopics.includes(ALL_ARTICLES)
       ? articles
       : articles.filter(({ topic }) => topic && currentTopics.includes(topic))
 );

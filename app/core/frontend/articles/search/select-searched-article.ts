@@ -18,9 +18,11 @@ const extractTextFromContent: (...args: any[]) => string | undefined = compose(
   JSON.stringify
 );
 
+const MINIMUM_CHARS_LENGTH_TO_LAUNCH_SEARCH = 3;
+
 export const searchSelector = curry(
   (searchTerms: string, articles: Article[]): Article[] =>
-    searchTerms.length < 3
+    searchTerms.length < MINIMUM_CHARS_LENGTH_TO_LAUNCH_SEARCH
       ? articles
       : articles.filter(
           ({ timeToRead, title, summary = "", content }) =>

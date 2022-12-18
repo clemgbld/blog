@@ -1,8 +1,5 @@
 import { articleBuilder } from "../../utils/article-builder";
-import {
-  allTopics,
-  selectArticlesBasedOnTopic,
-} from "../select-articles-by-topic";
+import { allTopics, selectArticlesBasedOnTopic } from "../topics";
 describe("topics", () => {
   it("should get a list of the topic of all articles", () => {
     const articles = [
