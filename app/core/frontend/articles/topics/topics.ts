@@ -18,3 +18,11 @@ export const selectArticlesBasedOnTopic = curry(
       ? articles
       : articles.filter(({ topic }) => topic && currentTopics.includes(topic))
 );
+
+export const countArticlesInTopic = (
+  selectedTopic: string,
+  articles: Article[]
+) =>
+  selectedTopic === "all articles"
+    ? articles.length
+    : articles.filter(({ topic }) => selectedTopic === topic).length;

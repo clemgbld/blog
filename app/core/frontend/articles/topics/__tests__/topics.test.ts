@@ -1,5 +1,10 @@
 import { articleBuilder } from "../../utils/article-builder";
-import { allTopics, selectArticlesBasedOnTopic } from "../topics";
+import {
+  allTopics,
+  selectArticlesBasedOnTopic,
+  countArticlesInTopic,
+} from "../topics";
+
 describe("topics", () => {
   it("should get a list of the topic of all articles", () => {
     const articles = [
@@ -68,6 +73,17 @@ describe("topics", () => {
         articleBuilder({ topic: "react" }),
         articleBuilder({ topic: "vue" }),
       ]);
+    });
+  });
+
+  describe("count number of articles in a topic", () => {
+    const articles = [articleBuilder({}), articleBuilder({ topic: "react" })];
+    it("should count all articles", () => {
+      expect(countArticlesInTopic("all articles", articles)).toBe(2);
+    });
+
+    it("should only count articles in a specfic topic", () => {
+      expect(countArticlesInTopic("react", articles)).toBe(1);
     });
   });
 });
