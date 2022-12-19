@@ -6,10 +6,14 @@ const EXISTING_ARTICLE_ID = "1";
 
 const UNEXSTING_ARTICLE_ID = "5";
 
+let articlesRepository: ReturnType<typeof buildInMemoryArticlesRepository>;
+
+beforeEach(() => {
+  articlesRepository = buildInMemoryArticlesRepository();
+});
+
 describe("retrieve published article", () => {
   it("should retrieve the expected article based on its id", async () => {
-    const articlesRepository = buildInMemoryArticlesRepository();
-
     const expectedArticle = await retrievePublishedArticle({
       articlesRepository,
       id: EXISTING_ARTICLE_ID,
@@ -19,8 +23,6 @@ describe("retrieve published article", () => {
   });
 
   it("should fails fast when the article does not exist or is hidden", async () => {
-    const articlesRepository = buildInMemoryArticlesRepository();
-
     await expect(async () =>
       retrievePublishedArticle({
         articlesRepository,
