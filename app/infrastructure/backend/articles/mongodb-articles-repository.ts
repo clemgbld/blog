@@ -1,5 +1,19 @@
-import { Db } from "mongodb";
+import { Db, ObjectId } from "mongodb";
+import { adaptDataForApp, adaptDataListForApp } from "../db/utils/adapt-data";
+import { ArticleWithStringifyContent } from "../../../core/backend/articles/repositories/articles-repository";
 
 export const buildMongoDbArticlesRepository = (db: Db) => ({
-  allArticlesPublished: async () => null,
+  allArticlesPublished: async (): Promise<ArticleWithStringifyContent[]> => {
+    const articlesFromDb = await db
+      .collection("articles")
+      .find({ hide: false })
+      .toArray();
+
+    return adaptDataListForApp(articlesFromDb);
+  },
+
+  getPublishedArticle: async (id: string) =>
+    adaptDataForApp(
+      await db.collection("articles").findOne({ _id: new ObjectId(id) })
+    ),
 });
