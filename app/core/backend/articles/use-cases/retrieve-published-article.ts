@@ -1,8 +1,8 @@
-import { buildInMemoryArticlesRepository } from "../../../../infrastructure/backend/articles/in-memory-articles-repository";
 import { parseArticleContent } from "../../utils/parse-article-content";
+import { ArticlesRepository } from "../repositories/articles-repository";
 
 type RetrievePublishedArticle = {
-  articlesRepository: ReturnType<typeof buildInMemoryArticlesRepository>;
+  articlesRepository: ArticlesRepository;
   id: string;
 };
 

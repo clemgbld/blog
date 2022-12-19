@@ -12,7 +12,9 @@ export const buildMongoDbArticlesRepository = (db: Db) => ({
     return adaptDataListForApp(articlesFromDb);
   },
 
-  getPublishedArticle: async (id: string) =>
+  getPublishedArticle: async (
+    id: string
+  ): Promise<ArticleWithStringifyContent[] | undefined> =>
     adaptDataForApp(
       await db.collection("articles").findOne({ _id: new ObjectId(id) })
     ),

@@ -7,3 +7,10 @@ export type ArticleWithStringifyContent = {
   hide: boolean;
   lightMode: boolean;
 };
+
+export type ArticlesRepository = {
+  allArticlesPublished: () => Promise<ArticleWithStringifyContent[]>;
+  getPublishedArticle: (
+    id: string
+  ) => Promise<ArticleWithStringifyContent | undefined>;
+};
