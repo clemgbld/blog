@@ -11,5 +11,6 @@ export const buildInMemoryArticlesRepository = () => {
 
   return {
     allArticlesPublished: async () => Promise.resolve([...db.values()]),
+    getPublishedArticle: async (id: string) => db.get(id),
   };
 };
