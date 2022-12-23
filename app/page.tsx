@@ -1,7 +1,13 @@
-import React from "react";
+import { retrievePublishedArticles } from "./core/backend/articles/use-cases/retrieve-published-articles";
+import { buildInMemoryArticlesRepository } from "./infrastructure/backend/articles/in-memory-articles-repository";
+import Home from "./home/Home";
 
-const Home = () => {
-  return <div>I am the home page!</div>;
+const HomePage = async () => {
+  const articlesRepository = buildInMemoryArticlesRepository();
+
+  const articles = await retrievePublishedArticles(articlesRepository);
+
+  return <Home articles={articles} />;
 };
 
-export default Home;
+export default HomePage;

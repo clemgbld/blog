@@ -1,4 +1,6 @@
 export type ArticleWithStringifyContent = {
+  topic: string | null;
+  timeToRead: string;
   id: string;
   title: string;
   summary: string;
