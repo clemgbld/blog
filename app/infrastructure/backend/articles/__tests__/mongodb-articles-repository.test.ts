@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 import { MongoClient, Db, ObjectId } from "mongodb";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { initMemoryDb } from "../../db/db";
