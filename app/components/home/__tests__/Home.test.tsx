@@ -24,6 +24,13 @@ describe("Home", () => {
       "/article/2"
     );
 
+    const imgEl1: any = screen.getAllByAltText("")[0];
+
+    expect(imgEl1.src).toBe(
+      "https://isamatov.com/images/react-avoid-redundant-renders/React%20Performance-%20How%20to%20avoid%20redundant%20re-renders.png"
+    );
+    expect(screen.queryByText("No article yet...")).not.toBeInTheDocument();
+
     expect(screen.queryByText("No articles yet!")).not.toBeInTheDocument();
   });
 });

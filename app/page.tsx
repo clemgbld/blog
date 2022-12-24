@@ -1,6 +1,6 @@
 import { retrievePublishedArticles } from "./core/backend/articles/use-cases/retrieve-published-articles";
 import { buildInMemoryArticlesRepository } from "./infrastructure/backend/articles/in-memory-articles-repository";
-import Home from "./components/home/Home";
+import Home from "./components/Home/Home";
 
 const HomePage = async () => {
   const articlesRepository = buildInMemoryArticlesRepository();
