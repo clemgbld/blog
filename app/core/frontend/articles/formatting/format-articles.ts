@@ -1,7 +1,7 @@
 import { Article } from "../../../backend/articles/entities/articles";
 import { formatDateDDMMYYYY } from "../../utils/date/format-date";
 
-type FormattedArticle = {
+export type FormattedArticle = {
   id: string;
   summary?: string;
   topic?: string | null;

@@ -29,7 +29,22 @@ describe("Home", () => {
     expect(imgEl1.src).toBe(
       "https://isamatov.com/images/react-avoid-redundant-renders/React%20Performance-%20How%20to%20avoid%20redundant%20re-renders.png"
     );
-    expect(screen.queryByText("No article yet...")).not.toBeInTheDocument();
+
+    expect(
+      screen.getByText("React Performance: How to avoid redundant re-renders")
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByText(
+        "Redundant re-renders are a common issue in React. If not taken seriously, this issue can quickly worsen the performance of your application."
+      )
+    ).toBeInTheDocument();
+
+    expect(screen.getByText("17/10/2022")).toBeInTheDocument();
+
+    expect(screen.getByText("7 min read")).toBeInTheDocument();
+
+    expect(screen.getByText("React")).toBeInTheDocument();
 
     expect(screen.queryByText("No articles yet!")).not.toBeInTheDocument();
   });

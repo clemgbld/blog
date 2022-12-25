@@ -1,9 +1,8 @@
 "use client";
 import { FC } from "react";
 import { Article } from "../../core/backend/articles/entities/articles";
-import Link from "next/link";
-import Image from "next/image";
 import ArticleCard from "./ArticleCard/ArticleCard";
+import { allArticlesFormatted } from "../../core/frontend/articles/formatting/format-articles";
 
 type HomeProps = {
   articles: Article[];
@@ -15,7 +14,7 @@ const Home: FC<HomeProps> = ({ articles }) => {
       {articles.length === 0 ? (
         <p>No articles yet!</p>
       ) : (
-        articles.map((article) => (
+        allArticlesFormatted(articles).map((article) => (
           <ArticleCard key={article.id} article={article} />
         ))
       )}

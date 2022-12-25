@@ -1,22 +1,44 @@
 /* eslint-disable @next/next/no-img-element */
 import { FC } from "react";
-import { Article } from "../../../core/backend/articles/entities/articles";
+
+import { FormattedArticle } from "../../../core/frontend/articles/formatting/format-articles";
 import Link from "next/link";
-import Image from "next/image";
 import { selectFirstImg } from "../../../core/frontend/articles/select-first-img/select-first-img";
 
 type ArticleCardProps = {
-  article: Article;
+  article: FormattedArticle;
 };
 
-const ArticleCard: FC<ArticleCardProps> = ({ article: { id, content } }) => {
+const ArticleCard: FC<ArticleCardProps> = ({
+  article: { id, content, title, summary, date, timeToRead, topic },
+}) => {
   const { src, alt } = selectFirstImg(content);
   return (
     <div key={id}>
       <Link href={`/article/${id}`}>
-        <div>
-          <img src={src} alt={alt} width={500} height={500} />
-        </div>
+        <figure>
+          <div>
+            <img src={src} alt={alt} />
+          </div>
+          <figcaption>
+            <h2>{title}</h2>
+            <div>
+              <div>
+                <span>{date}</span>
+              </div>
+              <div>
+                <span>{timeToRead}</span>
+              </div>
+              {topic && (
+                <div>
+                  <span>{topic}</span>
+                </div>
+              )}
+            </div>
+
+            {summary && <p>{summary}</p>}
+          </figcaption>
+        </figure>
       </Link>
     </div>
   );
