@@ -1,4 +1,5 @@
-import { createStore } from "../../../store";
+import { PreloadedState } from "@reduxjs/toolkit";
+import { createStore, RootState } from "../../../store";
 import { buildInMemoryStorage } from "../../../../../infrastructure/frontend/storage-service/in-memory-storage";
 import { buildStorageService } from "../../../../../infrastructure/frontend/storage-service/storage-service";
 import { buildOsThemeService } from "../../../../../infrastructure/frontend/os-theme-service/os-theme-service";
@@ -9,9 +10,11 @@ describe("theme feature", () => {
   const setUp = ({
     existingStorage = {},
     existingMatchMedia = true,
+    preloadedState,
   }: {
     existingStorage?: Record<string, string>;
     existingMatchMedia?: boolean;
+    preloadedState?: PreloadedState<RootState>;
   }) => {
     const inMemoryStorage = buildInMemoryStorage(existingStorage);
     const inMemoryMatchMedia = buildInMemoryMatchMedia(existingMatchMedia);
@@ -42,17 +45,8 @@ describe("theme feature", () => {
   });
 
   it("should be in light mode when this mode is already in the storage", async () => {
-    const inMemoryStorage = buildInMemoryStorage({
-      "blog-theme": "light",
-    });
-    const inMemoryMatchMedia = buildInMemoryMatchMedia();
-    const storageService = buildStorageService(inMemoryStorage);
-    const osThemeService = buildOsThemeService(inMemoryMatchMedia);
-    const store = createStore({
-      services: {
-        storageService,
-        osThemeService,
-      },
+    const { store } = setUp({
+      existingStorage: { "blog-theme": "light" },
       preloadedState: {
         ui: {
           searchTerms: "",
