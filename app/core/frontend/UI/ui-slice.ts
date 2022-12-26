@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getUserTheme } from "./use-cases/theme";
 
 export const initialState = {
   searchTerms: "",
@@ -12,5 +13,10 @@ export const uiSlice = createSlice({
     updateSearchTerms: (state, action) => {
       state.searchTerms = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getUserTheme.fulfilled, (state, action) => {
+      state.isLightMode = action.payload;
+    });
   },
 });
