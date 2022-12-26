@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const initialState = {
   searchTerms: "",
+  isLightMode: true,
 };
 
 export const uiSlice = createSlice({

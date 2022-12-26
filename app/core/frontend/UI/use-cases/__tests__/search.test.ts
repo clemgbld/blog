@@ -1,15 +1,15 @@
-import { createStore } from "../../store";
-import { updateSearchTerms } from "../use-cases/search";
+import { createStore } from "../../../store";
+import { updateSearchTerms } from "../search";
 
 describe("search feature", () => {
   it("should have no text initially", () => {
-    const store = createStore();
+    const store = createStore({});
 
     expect(store.getState().ui.searchTerms).toBe("");
   });
 
   it("should update search terms", () => {
-    const store = createStore();
+    const store = createStore({});
 
     store.dispatch(updateSearchTerms("React"));
 
