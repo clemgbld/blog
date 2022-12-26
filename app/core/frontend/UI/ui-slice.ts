@@ -7,5 +7,9 @@ export const initialState = {
 export const uiSlice = createSlice({
   name: "ui",
   initialState,
-  reducers: {},
+  reducers: {
+    updateSearchTerms: (state, action) => {
+      state.searchTerms = action.payload;
+    },
+  },
 });
