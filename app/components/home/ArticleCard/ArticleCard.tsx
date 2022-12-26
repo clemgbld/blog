@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { FC } from "react";
-
 import { FormattedArticle } from "../../../core/frontend/articles/formatting/format-articles";
 import Link from "next/link";
 import { selectFirstImg } from "../../../core/frontend/articles/select-first-img/select-first-img";
@@ -35,7 +34,6 @@ const ArticleCard: FC<ArticleCardProps> = ({
                 </div>
               )}
             </div>
-
             {summary && <p>{summary}</p>}
           </figcaption>
         </figure>
