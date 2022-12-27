@@ -1,5 +1,7 @@
+import "./globals.scss";
 import ReduxProvider from "./(components)/common/ReduxProvider/ReduxProvider";
 import Header from "./(components)/common/Header/Header";
+import ThemeWrapper from "./(components)/common/ThemeWrapper/ThemeWrapper";
 
 export default function RootLayout({
   children,
@@ -11,7 +13,9 @@ export default function RootLayout({
       <head></head>
       <body>
         <ReduxProvider>
-          <Header>{children}</Header>
+          <ThemeWrapper>
+            <Header>{children}</Header>
+          </ThemeWrapper>
         </ReduxProvider>
       </body>
     </html>

@@ -1,0 +1,37 @@
+@import "./utils.scss";
+
+*,
+::after,
+::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 50%;
+
+  scroll-behavior: smooth;
+
+  @include responsive(map-get($breakpoints, tablet)) {
+    font-size: 56.25%;
+  }
+
+  @include responsive(map-get($breakpoints, laptop)) {
+    font-size: 62.25%;
+  }
+}
+
+body {
+  line-height: 1;
+  font-weight: 400;
+  font-size: 1.6rem;
+  font-family: "Open Sans", sans-serif;
+  /* Only works if there is nothing absolutely positioned in relation to body */
+  overflow-x: hidden;
+}
+
+.base {
+  @include flex--full-center;
+  flex-direction: column;
+}
