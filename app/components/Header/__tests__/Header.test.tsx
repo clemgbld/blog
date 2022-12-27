@@ -6,6 +6,7 @@ import { buildInMemoryStorage } from "../../../infrastructure/frontend/storage-s
 import { buildStorageService } from "../../../infrastructure/frontend/storage-service/storage-service";
 import { buildOsThemeService } from "../../../infrastructure/frontend/os-theme-service/os-theme-service";
 import Header from "../Header";
+import * as hooks from "next/navigation";
 
 describe("Header", () => {
   const renderHeader = () => {
@@ -40,5 +41,10 @@ describe("Header", () => {
     const switchBtn = screen.getByTestId("switch-theme");
     await userEvent.click(switchBtn);
     expect(storage.getItem("blog-theme")).toBe("dark");
+  });
+  it("should not render search bar when pathname is not /", () => {
+    jest.spyOn(hooks, "usePathname").mockImplementation(() => "/article/1");
+    renderHeader();
+    expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
   });
 });

@@ -10,6 +10,10 @@ import { Article } from "../../../core/backend/articles/entities/articles";
 import Home from "../Home";
 import Header from "../../Header/Header";
 
+jest.mock("next/navigation", () => ({
+  usePathname: () => "/",
+}));
+
 describe("Home", () => {
   const renderHome = (articles: Article[] = [fakeArticle1, fakeArticle2]) => {
     const store = createStore({});

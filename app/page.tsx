@@ -2,6 +2,13 @@ import { retrievePublishedArticles } from "./core/backend/articles/use-cases/ret
 import { buildInMemoryArticlesRepository } from "./infrastructure/backend/articles/in-memory-articles-repository";
 import Home from "./components/Home/Home";
 
+export const dynamic = "auto",
+  dynamicParams = true,
+  revalidate = 0,
+  fetchCache = "auto",
+  runtime = "nodejs",
+  preferredRegion = "auto";
+
 const HomePage = async () => {
   const articlesRepository = buildInMemoryArticlesRepository();
 
