@@ -13,7 +13,7 @@ const ArticleCard: FC<ArticleCardProps> = ({
 }) => {
   const { src, alt } = selectFirstImg(content);
   return (
-    <div key={id}>
+    <div data-testid="article" key={id}>
       <Link href={`/article/${id}`}>
         <figure>
           <div>

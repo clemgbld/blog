@@ -1,3 +1,6 @@
+import ReduxProvider from "./components/ReduxProvider/ReduxProvider";
+import Header from "./components/Header/Header";
+
 export default function RootLayout({
   children,
 }: {
@@ -6,7 +9,11 @@ export default function RootLayout({
   return (
     <html>
       <head></head>
-      <body>{children}</body>
+      <body>
+        <ReduxProvider>
+          <Header>{children}</Header>
+        </ReduxProvider>
+      </body>
     </html>
   );
 }

@@ -1,4 +1,7 @@
 import { render, screen } from "@testing-library/react";
+import { Provider } from "react-redux";
+import userEvent from "@testing-library/user-event";
+import { createStore } from "../../../core/frontend/store";
 import {
   fakeArticle1,
   fakeArticle2,
@@ -8,12 +11,17 @@ import Home from "../Home";
 import Header from "../../Header/Header";
 
 describe("Home", () => {
-  const renderHome = (articles: Article[] = [fakeArticle1, fakeArticle2]) =>
+  const renderHome = (articles: Article[] = [fakeArticle1, fakeArticle2]) => {
+    const store = createStore({});
+
     render(
-      <Header>
-        <Home articles={articles} />
-      </Header>
+      <Provider store={store}>
+        <Header>
+          <Home articles={articles} />
+        </Header>
+      </Provider>
     );
+  };
 
   describe("articles rendering", () => {
     it("should dispaly a message when there is no articles", () => {
@@ -59,6 +67,12 @@ describe("Home", () => {
   });
 
   describe("search feature", () => {
-    it("should filter out the first article", () => {});
+    it("should filter out the first article", async () => {
+      renderHome();
+      const searchBar = screen.getByRole("textbox");
+      await userEvent.type(searchBar, "React");
+      expect(searchBar).toHaveValue("React");
+      expect(screen.getAllByTestId("article").length).toBe(1);
+    });
   });
 });
