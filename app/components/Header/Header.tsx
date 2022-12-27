@@ -3,7 +3,10 @@ import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../core/frontend/store";
 import { updateSearchTerms } from "../../core/frontend/UI/use-cases/search";
-import { getUserTheme } from "../../core/frontend/UI/use-cases/theme";
+import {
+  getUserTheme,
+  toggleUserTheme,
+} from "../../core/frontend/UI/use-cases/theme";
 
 type HeaderProps = {
   children: React.ReactNode;
@@ -31,6 +34,12 @@ const Header: FC<HeaderProps> = ({ children }) => {
               dispatch(updateSearchTerms(value))
             }
           />
+          <button
+            onClick={() => dispatch(toggleUserTheme())}
+            data-testid="switch-theme"
+          >
+            switch theme
+          </button>
         </nav>
       </header>
       {children}
