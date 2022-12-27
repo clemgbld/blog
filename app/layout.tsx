@@ -1,5 +1,5 @@
-import ReduxProvider from "./components/ReduxProvider/ReduxProvider";
-import Header from "./components/Header/Header";
+import ReduxProvider from "./(components)/common/ReduxProvider/ReduxProvider";
+import Header from "./(components)/common/Header/Header";
 
 export default function RootLayout({
   children,
