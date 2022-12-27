@@ -3,5 +3,8 @@ export const buildInMemoryStorage = (storage: Record<string, string> = {}) => {
 
   return {
     getItem: (key: string) => store[key],
+    setItem: (key: string, value: string) => {
+      store[key] = value;
+    },
   };
 };

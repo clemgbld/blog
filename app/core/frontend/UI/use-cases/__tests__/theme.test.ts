@@ -4,20 +4,20 @@ import { buildInMemoryStorage } from "../../../../../infrastructure/frontend/sto
 import { buildStorageService } from "../../../../../infrastructure/frontend/storage-service/storage-service";
 import { buildOsThemeService } from "../../../../../infrastructure/frontend/os-theme-service/os-theme-service";
 import { buildInMemoryMatchMedia } from "../../../../../infrastructure/frontend/os-theme-service/in-memory-match-media";
-import { getUserTheme } from "../theme";
+import { getUserTheme, toggleUserTheme } from "../theme";
+import { themeSelector } from "../../selectors/ui-selectors";
 
 describe("theme feature", () => {
   const setUp = ({
     existingStorage = {},
-    existingMatchMedia = true,
+    inMemoryMatchMedia,
     preloadedState,
   }: {
     existingStorage?: Record<string, string>;
-    existingMatchMedia?: boolean;
+    inMemoryMatchMedia?: ReturnType<typeof buildInMemoryMatchMedia>;
     preloadedState?: PreloadedState<RootState>;
   }) => {
     const inMemoryStorage = buildInMemoryStorage(existingStorage);
-    const inMemoryMatchMedia = buildInMemoryMatchMedia(existingMatchMedia);
     const storageService = buildStorageService(inMemoryStorage);
     const osThemeService = buildOsThemeService(inMemoryMatchMedia);
     const store = createStore({
@@ -25,6 +25,7 @@ describe("theme feature", () => {
         storageService,
         osThemeService,
       },
+      preloadedState,
     });
 
     return {
@@ -32,31 +33,105 @@ describe("theme feature", () => {
       inMemoryStorage,
     };
   };
-  it("should have a light mode set to true initially", () => {
-    const store = createStore({});
-    expect(store.getState().ui.isLightMode).toBe(true);
-  });
 
-  it("should be in dark mode when this mode is already in the storage", async () => {
-    const { store } = setUp({ existingStorage: { "blog-theme": "dark" } });
-    await store.dispatch(getUserTheme());
-
-    expect(store.getState().ui.isLightMode).toBe(false);
-  });
-
-  it("should be in light mode when this mode is already in the storage", async () => {
-    const { store } = setUp({
-      existingStorage: { "blog-theme": "light" },
-      preloadedState: {
-        ui: {
-          searchTerms: "",
-          isLightMode: false,
-        },
-      },
+  describe("getUserTheme", () => {
+    it("should have a light mode set to true initially", () => {
+      const store = createStore({});
+      expect(themeSelector(store.getState())).toBe(true);
     });
 
-    await store.dispatch(getUserTheme());
+    it("should be in dark mode when this mode is already in the storage", async () => {
+      const { store } = setUp({ existingStorage: { "blog-theme": "dark" } });
+      await store.dispatch(getUserTheme());
 
-    expect(store.getState().ui.isLightMode).toBe(true);
+      expect(themeSelector(store.getState())).toBe(false);
+    });
+
+    it("should be in light mode when this mode is already in the storage", async () => {
+      const { store } = setUp({
+        existingStorage: { "blog-theme": "light" },
+        preloadedState: {
+          ui: {
+            searchTerms: "",
+            isLightMode: false,
+          },
+        },
+      });
+
+      await store.dispatch(getUserTheme());
+
+      expect(themeSelector(store.getState())).toBe(true);
+    });
+
+    it("should be in light mode when there is no theme in the storage source and that we cannot access the os of the user", async () => {
+      const { store, inMemoryStorage } = setUp({
+        preloadedState: {
+          ui: {
+            searchTerms: "",
+            isLightMode: false,
+          },
+        },
+        inMemoryMatchMedia: undefined,
+      });
+      await store.dispatch(getUserTheme());
+
+      expect(themeSelector(store.getState())).toBe(true);
+      expect(inMemoryStorage.getItem("blog-theme")).toBe("light");
+    });
+
+    it("should be in dark mode when there is no theme in the storage source and the os theme of the user is dark", async () => {
+      const { store, inMemoryStorage } = setUp({
+        inMemoryMatchMedia: buildInMemoryMatchMedia(false),
+      });
+
+      await store.dispatch(getUserTheme());
+
+      expect(themeSelector(store.getState())).toBe(false);
+      expect(inMemoryStorage.getItem("blog-theme")).toBe("dark");
+    });
+
+    it("should be in light mode when there is no theme in the storage source and the os theme of the user is light", async () => {
+      const { store, inMemoryStorage } = setUp({
+        preloadedState: {
+          ui: {
+            searchTerms: "",
+            isLightMode: false,
+          },
+        },
+        inMemoryMatchMedia: buildInMemoryMatchMedia(),
+      });
+
+      await store.dispatch(getUserTheme());
+
+      expect(themeSelector(store.getState())).toBe(true);
+      expect(inMemoryStorage.getItem("blog-theme")).toBe("light");
+    });
+  });
+
+  describe("toggleUserTheme", () => {
+    it("should toggle the theme to dark mode when it is in light mode initially", async () => {
+      const { store, inMemoryStorage } = setUp({});
+
+      await store.dispatch(toggleUserTheme());
+
+      expect(themeSelector(store.getState())).toBe(false);
+      expect(inMemoryStorage.getItem("blog-theme")).toBe("dark");
+    });
+
+    it("should toggle the theme to light mode when it is in dark mode initially", async () => {
+      const { store, inMemoryStorage } = setUp({
+        preloadedState: {
+          ui: {
+            searchTerms: "",
+            isLightMode: false,
+          },
+        },
+      });
+
+      await store.dispatch(toggleUserTheme());
+
+      expect(themeSelector(store.getState())).toBe(true);
+      expect(inMemoryStorage.getItem("blog-theme")).toBe("light");
+    });
   });
 });
