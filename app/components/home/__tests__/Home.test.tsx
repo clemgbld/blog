@@ -5,11 +5,15 @@ import {
 } from "../../../core/backend/articles/fixtures/articles-fixtures";
 import { Article } from "../../../core/backend/articles/entities/articles";
 import Home from "../Home";
-import "@testing-library/jest-dom";
+import Header from "../../Header/Header";
 
 describe("Home", () => {
   const renderHome = (articles: Article[] = [fakeArticle1, fakeArticle2]) =>
-    render(<Home articles={articles} />);
+    render(
+      <Header>
+        <Home articles={articles} />
+      </Header>
+    );
 
   describe("articles rendering", () => {
     it("should dispaly a message when there is no articles", () => {
@@ -52,5 +56,9 @@ describe("Home", () => {
 
       expect(screen.queryByText("No articles yet!")).not.toBeInTheDocument();
     });
+  });
+
+  describe("search feature", () => {
+    it("should filter out the first article", () => {});
   });
 });
