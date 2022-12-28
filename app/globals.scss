@@ -31,7 +31,29 @@ body {
   overflow-x: hidden;
 }
 
-.base {
-  @include flex--full-center;
+.light {
+  display: flex;
+  align-items: center;
   flex-direction: column;
+  background-color: #c5f6fa;
+  color: #212529;
+  height: 100vh;
+  transition: all 0.3s ease-in-out;
+}
+
+.dark {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #212529;
+  color: #c5f6fa;
+  height: 100vh;
+  transition: all 0.3s ease-in-out;
+  h1 {
+    color: #08fdd8;
+  }
+
+  h2 {
+    color: #08fdd8;
+  }
 }

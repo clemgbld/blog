@@ -1,7 +1,7 @@
 import "./globals.scss";
-import ReduxProvider from "./(components)/common/ReduxProvider/ReduxProvider";
-import Header from "./(components)/common/Header/Header";
-import ThemeWrapper from "./(components)/common/ThemeWrapper/ThemeWrapper";
+import ReduxProvider from "../components/common/ReduxProvider/ReduxProvider";
+import Header from "../components/common/Header/Header";
+import ThemeWrapper from "../components/common/ThemeWrapper/ThemeWrapper";
 
 export default function RootLayout({
   children,
