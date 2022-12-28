@@ -19,6 +19,10 @@ const ArticleCard: FC<ArticleCardProps> = ({
 }) => {
   const isLightMode = useSelector(themeSelector);
 
+  const titleClassName = isLightMode
+    ? classNames.card__title
+    : classNames["card__title--dark"];
+
   const { src, alt } = selectFirstImg(content);
   return (
     <div data-testid="article" key={id}>
@@ -28,7 +32,7 @@ const ArticleCard: FC<ArticleCardProps> = ({
             <img className={classNames.card__img} src={src} alt={alt} />
           </div>
           <figcaption>
-            <h2 className={classNames.card__title}>{title}</h2>
+            <h2 className={titleClassName}>{title}</h2>
             <div className={classNames["card__tag--container"]}>
               <div className={classNames.card__tag}>
                 <AiOutlineCalendar />

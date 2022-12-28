@@ -30,7 +30,7 @@ const Home: FC<HomeProps> = ({ articles }) => {
 
   return (
     <div className={classNames.home}>
-      <h1>Blog:</h1>
+      <h1>Blog Posts:</h1>
       {filteredArticles.length === 0 ? (
         <p>No articles!</p>
       ) : (
