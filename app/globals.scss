@@ -29,19 +29,7 @@ body {
   font-family: "ui-monospace", "monospace", sans-serif;
   /* Only works if there is nothing absolutely positioned in relation to body */
   overflow-x: hidden;
-}
 
-.light {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  background-color: #c5f6fa;
-  color: #212529;
-  height: 100vh;
-  transition: all 0.3s ease-in-out;
-}
-
-.dark {
   display: flex;
   align-items: center;
   flex-direction: column;

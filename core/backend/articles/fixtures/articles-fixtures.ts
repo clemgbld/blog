@@ -17,7 +17,7 @@ export const fakeArticle1: Article = {
       children: [
         {
           color: "#000",
-          text: "Redundant re-renders are a common issue in React. If not taken seriously, this issue can quickly worsen the performance of your application.",
+          text: "React Performance: How to avoid redundant re-renders",
         },
       ],
     },

@@ -1,22 +1,20 @@
 "use client";
 import { FC, useMemo } from "react";
-import { useSelector } from "react-redux";
 import { pipe } from "ramda";
-import { RootState } from "../../core/frontend/store";
+
 import { Article } from "../../core/backend/articles/entities/articles";
 import ArticleCard from "./ArticleCard/ArticleCard";
 import { allArticlesFormatted } from "../../core/frontend/articles/formatting/format-articles";
 import { searchSelector } from "../../core/frontend/articles/search/select-searched-article";
 import classNames from "./Home.module.scss";
+import { useSearchStore } from "../../hooks/useSearchStore";
 
 type HomeProps = {
   articles: Article[];
 };
 
 const Home: FC<HomeProps> = ({ articles }) => {
-  const searchTerms = useSelector(
-    ({ ui: { searchTerms } }: RootState) => searchTerms
-  );
+  const searchTerms = useSearchStore((state) => state.searchTerms);
 
   const handleArticles = pipe(
     searchSelector(searchTerms),

@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
 import userEvent from "@testing-library/user-event";
-import { createStore } from "../../../core/frontend/store";
+
 import {
   fakeArticle1,
   fakeArticle2,
@@ -16,14 +15,10 @@ jest.mock("next/navigation", () => ({
 
 describe("Home", () => {
   const renderHome = (articles: Article[] = [fakeArticle1, fakeArticle2]) => {
-    const store = createStore({});
-
     render(
-      <Provider store={store}>
-        <Header>
-          <Home articles={articles} />
-        </Header>
-      </Provider>
+      <Header>
+        <Home articles={articles} />
+      </Header>
     );
   };
 
