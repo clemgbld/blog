@@ -8,10 +8,16 @@ import {
 import { Article } from "../../../core/backend/articles/entities/articles";
 import Home from "../Home";
 import Header from "../../common/Header/Header";
+import { useSearchStore } from "../../../hooks/useSearchStore";
 
 jest.mock("next/navigation", () => ({
   usePathname: () => "/",
 }));
+
+afterEach(() => {
+  const originalState = useSearchStore.getState();
+  useSearchStore.setState({ ...originalState, searchTerms: "" });
+});
 
 describe("Home", () => {
   const renderHome = (articles: Article[] = [fakeArticle1, fakeArticle2]) => {
@@ -61,7 +67,7 @@ describe("Home", () => {
 
       expect(screen.getByText("React")).toBeInTheDocument();
 
-      expect(screen.queryByText("No articles yet!")).not.toBeInTheDocument();
+      expect(screen.queryByText("No articles!")).not.toBeInTheDocument();
     });
   });
 
@@ -71,6 +77,15 @@ describe("Home", () => {
       const searchBar = screen.getByRole("textbox");
       await userEvent.type(searchBar, "React");
       expect(searchBar).toHaveValue("React");
+      expect(screen.getAllByTestId("article").length).toBe(1);
+    });
+  });
+
+  describe("topic feature", () => {
+    it("should filter out all no react topic", async () => {
+      renderHome();
+      const reactTopic = screen.getByText("React (1)");
+      await userEvent.click(reactTopic);
       expect(screen.getAllByTestId("article").length).toBe(1);
     });
   });
