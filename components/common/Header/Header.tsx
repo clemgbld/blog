@@ -44,7 +44,12 @@ const Header: FC<HeaderProps> = ({ children }) => {
             <h2 className={classNames.nav_title}>Clement&apos;s dev blog</h2>
           )}
 
-          <div>Portfolio</div>
+          <Link
+            className={classNames.nav_link}
+            href="https://clementgombauld.netlify.app/"
+          >
+            Portfolio
+          </Link>
         </nav>
       </header>
       {children}

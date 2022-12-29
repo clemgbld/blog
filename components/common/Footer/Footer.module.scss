@@ -1,0 +1,36 @@
+.footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-top: solid 1px #08fdd8;
+  max-width: 120rem;
+  height: 10rem;
+  width: 100%;
+
+  &__box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.6rem;
+  }
+
+  &__icon {
+    width: 3rem;
+    height: 3rem;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      color: #08fdd8;
+    }
+  }
+
+  &__link {
+    color: inherit;
+    text-decoration: inherit;
+    &:hover {
+      cursor: pointer;
+      color: #08fdd8;
+    }
+  }
+}

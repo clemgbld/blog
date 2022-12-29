@@ -35,6 +35,7 @@ body {
   flex-direction: column;
   background-color: #212529;
   color: #c5f6fa;
+  min-height: 100vh;
   height: 100vh;
   transition: all 0.3s ease-in-out;
   h1 {
@@ -44,4 +45,12 @@ body {
   h2 {
     color: #08fdd8;
   }
+}
+
+.page {
+  max-width: 1400rem;
+  width: 100%;
+  margin-top: 13.6rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }

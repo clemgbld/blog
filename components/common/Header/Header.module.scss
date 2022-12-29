@@ -3,6 +3,7 @@
   top: 0;
   left: 50%;
   transform: translate(-50%, 0);
+  max-width: 140rem;
   width: 100%;
   height: 10rem;
   display: flex;
@@ -30,8 +31,10 @@
   }
 
   &_search {
-    max-width: 30rem;
+    max-width: 25rem;
+
     width: 100%;
+
     border: none;
     background: #2b2b2b;
     height: 5rem;
@@ -91,6 +94,38 @@
 
   &_title {
     color: #08fdd8;
+  }
+
+  &_link {
+    position: relative;
+    color: inherit;
+    text-decoration: inherit;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      color: #08fdd8;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      background-color: #08fdd8;
+      height: 0.1rem;
+      width: 100%;
+      left: 0;
+
+      bottom: -0.6rem;
+
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease-in-out;
+    }
+    &:hover:after {
+      width: 100%;
+      transform-origin: left;
+      transform: scale(1);
+    }
   }
 }
 

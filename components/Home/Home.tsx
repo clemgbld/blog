@@ -6,8 +6,8 @@ import { Article } from "../../core/backend/articles/entities/articles";
 import ArticleCard from "./ArticleCard/ArticleCard";
 import { allArticlesFormatted } from "../../core/frontend/articles/formatting/format-articles";
 import { searchSelector } from "../../core/frontend/articles/search/select-searched-article";
-import classNames from "./Home.module.scss";
 import { useSearchStore } from "../../hooks/useSearchStore";
+import classNames from "./Home.module.scss";
 
 type HomeProps = {
   articles: Article[];
@@ -27,8 +27,8 @@ const Home: FC<HomeProps> = ({ articles }) => {
   );
 
   return (
-    <div className={classNames.home}>
-      <h1>Blog Posts:</h1>
+    <div className="page">
+      <h1 className={classNames.title}>Blog Posts:</h1>
       {filteredArticles.length === 0 ? (
         <p>No articles!</p>
       ) : (

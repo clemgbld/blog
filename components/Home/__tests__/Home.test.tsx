@@ -30,11 +30,11 @@ describe("Home", () => {
 
     it("should should display blog articles when there is any", () => {
       renderHome();
-      expect(screen.getAllByRole("link")[1]).toHaveAttribute(
+      expect(screen.getAllByRole("link")[2]).toHaveAttribute(
         "href",
         "/article/1"
       );
-      expect(screen.getAllByRole("link")[2]).toHaveAttribute(
+      expect(screen.getAllByRole("link")[3]).toHaveAttribute(
         "href",
         "/article/2"
       );
