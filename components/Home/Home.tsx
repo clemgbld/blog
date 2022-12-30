@@ -41,25 +41,31 @@ const Home: FC<HomeProps> = ({ articles }) => {
   );
 
   return (
-    <div className="page">
-      <h1 className={classNames.title}>Blog Posts:</h1>
-      {filteredArticles.length === 0 ? (
-        <p>No articles!</p>
-      ) : (
-        filteredArticles.map((article) => (
-          <ArticleCard key={article.id} article={article} />
-        ))
-      )}
-      <h2 className={classNames.title}>Topics:</h2>
+    <div className={`page ${classNames.box}`}>
       <div>
-        {allTopics(articles).map((topic) => (
-          <Tag
-            className=""
-            key={topic}
-            onClick={() => setCurrentTopics(handleSelectedTopics(topic))}
-            label={`${topic} (${countArticlesInTopic(topic, articles)})`}
-          />
-        ))}
+        <h1 className={classNames.title}>Blog Posts:</h1>
+        {filteredArticles.length === 0 ? (
+          <p>No articles!</p>
+        ) : (
+          filteredArticles.map((article) => (
+            <ArticleCard key={article.id} article={article} />
+          ))
+        )}
+      </div>
+      <div>
+        <h2 className={classNames.title}>Topics:</h2>
+        <div className={classNames.tags}>
+          {allTopics(articles).map((topic) => (
+            <Tag
+              className={
+                currentTopics.includes(topic) ? classNames["tag--active"] : ""
+              }
+              key={topic}
+              onClick={() => setCurrentTopics(handleSelectedTopics(topic))}
+              label={`${topic} (${countArticlesInTopic(topic, articles)})`}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

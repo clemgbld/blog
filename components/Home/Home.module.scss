@@ -1,4 +1,28 @@
+@import "../../app/utils.scss";
+
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+
+  @include responsive(map-get($breakpoints, laptop)) {
+    flex-direction: row;
+  }
+}
+
 .title {
   font-size: 2rem;
   margin-bottom: 1.6rem;
+}
+
+.tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.tag--active {
+  background-color: #08fdd8;
+  color: #000;
 }
