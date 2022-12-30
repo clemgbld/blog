@@ -15,6 +15,7 @@ import {
   handleSelectedTopics,
   ALL_ARTICLES,
 } from "../../core/frontend/articles/topics/topics";
+import { sortByMostRecent } from "../../core/frontend/articles/sort-by-most-recent/sort-by-most-recent";
 import classNames from "./Home.module.scss";
 
 type HomeProps = {
@@ -28,6 +29,7 @@ const Home: FC<HomeProps> = ({ articles }) => {
   const handleArticles = useMemo(
     () =>
       pipe(
+        sortByMostRecent,
         searchSelector(searchTerms),
         selectArticlesBasedOnTopic(currentTopics),
         allArticlesFormatted
