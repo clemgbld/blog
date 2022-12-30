@@ -1,6 +1,8 @@
 import { curry } from "ramda";
 import { allArticlesFormatted } from "../formatting/format-articles";
 
+export const ARTICLES_PER_PAGE = 10;
+
 export const calcNumPages = (
   articlesPerPages: number,
   articles: ReturnType<typeof allArticlesFormatted>
