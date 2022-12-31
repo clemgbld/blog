@@ -23,7 +23,6 @@ export const fakeArticle1: Article = {
     },
     {
       type: "img",
-      // caption: ["caption 1"],
       width: 424,
       id: 2,
       url: "https://isamatov.com/images/react-avoid-redundant-renders/React%20Performance-%20How%20to%20avoid%20redundant%20re-renders.png",
@@ -48,6 +47,44 @@ export const fakeArticle1: Article = {
       type: "p",
       id: 54,
       children: [{ text: "" }],
+    },
+    {
+      type: "h2",
+      id: 13456,
+      children: [{ text: "Spend time planning your state" }],
+    },
+    {
+      type: "p",
+      id: 45643,
+      children: [{ text: "" }],
+    },
+    {
+      type: "p",
+      id: 53434535,
+      children: [
+        {
+          text: "Think about the role of the state in the feature. How can you make it easy to extend it in the future, and which data structures should you use? It might seem like a lot of work upfront, but it will save you time and headaches in the long run as the new business requirements come in.",
+        },
+      ],
+    },
+    {
+      type: "h2",
+      id: 134563453,
+      children: [{ text: "Avoid keeping the state in different places" }],
+    },
+    {
+      type: "p",
+      id: 456443523,
+      children: [{ text: "" }],
+    },
+    {
+      type: "p",
+      id: 45643653465547,
+      children: [
+        {
+          text: "A common mistake I see is a component with multiple sources of state, which makes it hard to visualize the state logic and the flow of the data.I’ve seen one component rely on URL params, Redux, and local storage. Unsurprisingly, it was hard to decipher what was going on with it.Instead, aim to have one state source within your component. If you have a form that relies on Redux, make sure that it gets all of its data from Redux.Of course, sometimes, you have to use multiple sources of state. But that doesn’t mean that you can’t abstract them from each other.For example, if the same form needs to get its initial data set from URL params, wrap it in another component and have that component read URL params and pass them as props. This way, the core component stays loosely coupled, and it’s easier to reason about its inner state logic.",
+        },
+      ],
     },
   ],
 };

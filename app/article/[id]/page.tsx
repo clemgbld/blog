@@ -9,16 +9,20 @@ import ArticleTableOfContent from "../../../components/ArticleTableOfContent/Art
 const ArticlePage = async ({ params: { id } }: { params: { id: string } }) => {
   const articlesRepository = buildInMemoryArticlesRepository();
 
-  const { content, date, topic, timeToRead } = await retrievePublishedArticle({
+  const article = await retrievePublishedArticle({
     articlesRepository,
     id,
   });
 
   return (
     <div className="page">
-      <ArticleDetails date={date} topic={topic} timeToRead={timeToRead} />
-      <ArticleTableOfContent content={content} />
-      <ArticleContent content={content} />
+      <ArticleDetails
+        date={article.date}
+        topic={article.topic}
+        timeToRead={article.timeToRead}
+      />
+      <ArticleTableOfContent article={article} />
+      <ArticleContent content={article.content} />
     </div>
   );
 };
