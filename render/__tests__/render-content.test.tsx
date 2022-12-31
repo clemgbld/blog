@@ -475,4 +475,20 @@ describe("renderContent", () => {
       expect(document.querySelectorAll("code").length).toBe(2);
     });
   });
+
+  describe("h2", () => {
+    it("should have an h2 element with the title of the element as id", () => {
+      const content = [
+        {
+          type: "h2",
+          id: 1,
+          children: [{ text: "title" }],
+        },
+      ];
+
+      render(<div>{renderContent(content)}</div>);
+
+      expect(screen.getByText("title")).toHaveAttribute("id", "title");
+    });
+  });
 });

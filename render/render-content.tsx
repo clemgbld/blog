@@ -40,6 +40,10 @@ const buildSpecificProps = (content: any) => {
     props = { ...props, "data-testid": content.dataTestId };
   }
 
+  if (content.type === "h2") {
+    props = { ...props, id: content.children[0].text };
+  }
+
   return props;
 };
 

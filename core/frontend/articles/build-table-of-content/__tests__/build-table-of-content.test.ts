@@ -9,10 +9,7 @@ describe("build table of content", () => {
     ];
     const article = articleBuilder({ content });
 
-    expect(buildTableOfContent(article)).toEqual({
-      "Title 1": "Title 1",
-      "Title 2": "Title 2",
-    });
+    expect(buildTableOfContent(article)).toEqual(["Title 1", "Title 2"]);
   });
 
   it("should not take into account other element than h2 elemments", () => {
@@ -23,9 +20,6 @@ describe("build table of content", () => {
     ];
     const article = articleBuilder({ content });
 
-    expect(buildTableOfContent(article)).toEqual({
-      "Title 1": "Title 1",
-      "Title 2": "Title 2",
-    });
+    expect(buildTableOfContent(article)).toEqual(["Title 1", "Title 2"]);
   });
 });
