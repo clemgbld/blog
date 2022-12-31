@@ -69,9 +69,11 @@ const Home: FC<HomeProps> = ({
         {filteredArticles.length === 0 ? (
           <p>No articles!</p>
         ) : (
-          articlesToDisplay.map((article) => (
-            <ArticleCard key={article.id} article={article} />
-          ))
+          <div className={classNames.articles}>
+            {articlesToDisplay.map((article) => (
+              <ArticleCard key={article.id} article={article} />
+            ))}
+          </div>
         )}
         <PaginationFooter
           currentPage={currentPage}
