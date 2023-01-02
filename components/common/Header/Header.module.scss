@@ -1,5 +1,5 @@
 .nav {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 50%;
   transform: translate(-50%, 0);
@@ -24,7 +24,7 @@
 
   &_img {
     width: 10rem;
-    height: 9.4rem;
+    height: 9rem;
     background-color: rgba(33, 37, 41, 0.7);
     object-fit: cover;
     cursor: pointer;

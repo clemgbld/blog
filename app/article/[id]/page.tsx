@@ -5,6 +5,7 @@ import ArticleDetails from "../../../components/ArticleDetails/ArticleDetails";
 
 import React from "react";
 import ArticleTableOfContent from "../../../components/ArticleTableOfContent/ArticleTableOfContent";
+import Comments from "../../../components/Comments/Comments";
 
 const ArticlePage = async ({ params: { id } }: { params: { id: string } }) => {
   const articlesRepository = buildInMemoryArticlesRepository();
@@ -23,6 +24,7 @@ const ArticlePage = async ({ params: { id } }: { params: { id: string } }) => {
       />
       <ArticleTableOfContent article={article} />
       <ArticleContent content={article.content} />
+      <Comments />
     </div>
   );
 };
