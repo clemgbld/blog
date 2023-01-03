@@ -15,7 +15,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="page-centered">
+    <div className="mg-top">
       <div>
         <h1>| Something went wrong! |</h1>
         <Tag

@@ -1,5 +1,5 @@
 import { retrievePublishedArticles } from "../core/backend/articles/use-cases/retrieve-published-articles";
-import { buildInMemoryArticlesRepository } from "../infrastructure/backend/articles/in-memory-articles-repository";
+import { buildArticlesRepository } from "../infrastructure/backend/db/build-articles-repository";
 import Home from "../components/Home/Home";
 
 export const dynamic = "auto",
@@ -10,7 +10,7 @@ export const dynamic = "auto",
   preferredRegion = "auto";
 
 const HomePage = async () => {
-  const articlesRepository = buildInMemoryArticlesRepository();
+  const articlesRepository = await buildArticlesRepository();
 
   const articles = await retrievePublishedArticles(articlesRepository);
 

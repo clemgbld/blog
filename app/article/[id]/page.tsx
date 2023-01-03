@@ -1,5 +1,5 @@
 import { retrievePublishedArticle } from "../../../core/backend/articles/use-cases/retrieve-published-article";
-import { buildInMemoryArticlesRepository } from "../../../infrastructure/backend/articles/in-memory-articles-repository";
+import { buildArticlesRepository } from "../../../infrastructure/backend/db/build-articles-repository";
 import ArticleContent from "../../../components/ArticleContent/ArticleContent";
 import ArticleDetails from "../../../components/ArticleDetails/ArticleDetails";
 
@@ -8,7 +8,7 @@ import ArticleTableOfContent from "../../../components/ArticleTableOfContent/Art
 import Comments from "../../../components/Comments/Comments";
 
 const ArticlePage = async ({ params: { id } }: { params: { id: string } }) => {
-  const articlesRepository = buildInMemoryArticlesRepository();
+  const articlesRepository = await buildArticlesRepository();
 
   const article = await retrievePublishedArticle({
     articlesRepository,

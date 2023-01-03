@@ -1,4 +1,5 @@
 .spinner {
+  margin-top: 13.6rem;
   display: inline-block;
   width: 8rem;
   height: 8rem;
@@ -10,8 +11,8 @@
     height: 6.4rem;
     margin: 0.8rem;
     border-radius: 50%;
-    border: 0.6rem solid #fff;
-    border-color: #fff transparent #fff transparent;
+    border: 0.6rem solid #08fdd8;
+    border-color: #08fdd8 transparent;
     animation: lds-dual-ring 1.2s linear infinite;
   }
 }
