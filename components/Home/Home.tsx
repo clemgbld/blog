@@ -36,7 +36,6 @@ const Home: FC<HomeProps> = ({
   const [currentTopics, setCurrentTopics] = useState<string[]>([ALL_ARTICLES]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const searchTerms = useSearchStore((state) => state.searchTerms);
-
   const handleArticles = useMemo(
     () =>
       pipe(
