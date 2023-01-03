@@ -57,3 +57,11 @@ body {
   padding-right: 1rem;
   margin-bottom: 3.6rem;
 }
+
+.page-centered {
+  width: 100vw;
+  height: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
