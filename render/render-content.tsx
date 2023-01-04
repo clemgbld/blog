@@ -74,6 +74,10 @@ const buildStyle = (content: any) => {
     style = { ...style, marginBottom: "1.6rem" };
   }
 
+  if (content.type === "a") {
+    style = { ...style, color: "#08fdd8" };
+  }
+
   if (content.type === "blockquote") {
     style = {
       ...style,

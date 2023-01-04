@@ -199,6 +199,12 @@ export const fakeArticle2: Article = {
         },
       ],
     },
+    {
+      type: "a",
+      id: 34524,
+      url: "https://clementgombauld.netlify.app",
+      children: [{ text: "my url" }],
+    },
   ],
 };
 
