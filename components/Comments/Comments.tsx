@@ -8,9 +8,9 @@ const Comments = () => {
     <Giscus
       id={id}
       repo="clemgbld/blog-comments"
-      repoId="584378428"
+      repoId="R_kgDOItToPA"
       category="Announcements"
-      categoryId="DIC_kwDOEWBvEs4COl22"
+      categoryId="DIC_kwDOItToPM4CTZzg"
       mapping="pathname"
       reactionsEnabled="1"
       emitMetadata="0"
