@@ -4,7 +4,6 @@ import { buildArticlesRepository } from "../../../infrastructure/backend/db/buil
 
 export const getArticle = cache(async (id: string) => {
   const articlesRepository = await buildArticlesRepository();
-
   return retrievePublishedArticle({
     articlesRepository,
     id,
