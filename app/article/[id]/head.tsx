@@ -1,14 +1,7 @@
-import { retrievePublishedArticle } from "../../../core/backend/articles/use-cases/retrieve-published-article";
-import { buildArticlesRepository } from "../../../infrastructure/backend/db/build-articles-repository";
+import { getArticle } from "./get-article";
 
 const Head = async ({ params: { id } }: { params: { id: string } }) => {
-  const articlesRepository = await buildArticlesRepository();
-
-  const article = await retrievePublishedArticle({
-    articlesRepository,
-    id,
-  });
-
+  const article = await getArticle(id);
   return (
     <>
       <title>{article.title}</title>

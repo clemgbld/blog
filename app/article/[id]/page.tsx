@@ -1,20 +1,11 @@
-import { retrievePublishedArticle } from "../../../core/backend/articles/use-cases/retrieve-published-article";
-import { buildArticlesRepository } from "../../../infrastructure/backend/db/build-articles-repository";
+import { getArticle } from "./get-article";
 import ArticleContent from "../../../components/ArticleContent/ArticleContent";
 import ArticleDetails from "../../../components/ArticleDetails/ArticleDetails";
-
-import React from "react";
 import ArticleTableOfContent from "../../../components/ArticleTableOfContent/ArticleTableOfContent";
 import Comments from "../../../components/Comments/Comments";
 
 const ArticlePage = async ({ params: { id } }: { params: { id: string } }) => {
-  const articlesRepository = await buildArticlesRepository();
-
-  const article = await retrievePublishedArticle({
-    articlesRepository,
-    id,
-  });
-
+  const article = await getArticle(id);
   return (
     <div className="page">
       <ArticleDetails
