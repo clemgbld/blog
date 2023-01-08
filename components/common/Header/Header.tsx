@@ -29,6 +29,7 @@ const Header: FC<HeaderProps> = ({ children }) => {
               alt="logo app"
               width={500}
               height={500}
+              priority
             />
           </Link>
 
