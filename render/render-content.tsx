@@ -209,7 +209,7 @@ function renderElement(content: any, i: number) {
   return createElement(
     buildType(content),
     buildProps(content),
-    content.children && content.children[0].text !== ""
+    content.children && content.type !== "img"
       ? renderContent(content.children)
       : null
   );
