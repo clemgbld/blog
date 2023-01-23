@@ -42,7 +42,7 @@ const Header: FC<HeaderProps> = ({ children }) => {
               onChange={({ target: { value } }) => setSearchTerms(value)}
             />
           ) : (
-            <h2 className={classNames.nav_title}>Clement&apos;s dev blog</h2>
+            <h2 className={classNames.nav_title}>Clement&apos;s blog</h2>
           )}
 
           <Link
