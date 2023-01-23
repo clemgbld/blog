@@ -2,6 +2,8 @@
   max-width: 79vw;
   width: 100%;
   margin-bottom: 3.6rem;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   overflow-wrap: break-word;
 }
