@@ -4,6 +4,8 @@
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 
   @include responsive(map-get($breakpoints, laptop)) {
     flex-direction: row;
