@@ -8,7 +8,7 @@ const shiftAllArticles = (topics: string[]) => [ALL_ARTICLES, ...topics];
 
 const allTopicsWithoutDuplicatesAndUndefined = pipe(
   map(({ topic }: Article) => topic),
-  removeUndefinedAndDuplicate,
+  removeUndefinedAndDuplicate<string>,
   shiftAllArticles
 );
 

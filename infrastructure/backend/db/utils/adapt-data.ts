@@ -1,15 +1,19 @@
 import { WithId, Document, ObjectId } from "mongodb";
 
-export const adaptDataForApp = <T extends { _id?: ObjectId }>(data: T) => {
-  if (!data) return undefined;
+const adaptDefinedDataForApp = (data: any) => {
+  const id = data._id.toString();
+  const adaptedData = (({ _id, ...o }) => o)(data);
 
-  const id = data._id?.toString();
-  const adaptedData = { ...data };
-  delete adaptedData._id;
   return { id, ...adaptedData };
 };
 
+export const adaptDataForApp = (data: any) => {
+  if (!data) return undefined;
+
+  return adaptDefinedDataForApp(data);
+};
+
 export const adaptDataListForApp = (dataList: WithId<Document>[]) =>
-  dataList.map((data) => adaptDataForApp(data));
+  dataList.map((data) => adaptDefinedDataForApp(data));
 
 export const adaptIdForMongoDB = (id: string) => new ObjectId(id);
