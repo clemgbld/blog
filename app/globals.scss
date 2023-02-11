@@ -68,3 +68,20 @@ body {
 .mg-top {
   margin-top: 13.6rem;
 }
+
+li {
+  list-style-type: none;
+  position: relative;
+  margin-left: 2rem;
+}
+
+li::before {
+  content: "";
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: #08fdd8;
+  border-radius: 50%;
+  position: absolute;
+  left: -2rem;
+  top: 40%;
+}
