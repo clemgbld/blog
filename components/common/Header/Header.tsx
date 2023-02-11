@@ -19,7 +19,7 @@ const Header: FC<HeaderProps> = ({ children }) => {
   const { searchTerms, setSearchTerms } = useSearchStore((state) => state);
 
   return (
-    <div>
+    <>
       <header>
         <nav className={classNames.nav}>
           <Link href="/" className={classNames["nav_img_container"]}>
@@ -54,7 +54,7 @@ const Header: FC<HeaderProps> = ({ children }) => {
         </nav>
       </header>
       {children}
-    </div>
+    </>
   );
 };
 
