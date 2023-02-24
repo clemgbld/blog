@@ -12,6 +12,13 @@
   width: inherit;
 
   display: flex;
+  flex-direction: column;
+
+  @media (min-width: 31.25em) {
+    flex-direction: row;
+    align-items: center;
+  }
+
   align-items: center;
   gap: 1rem;
 
@@ -57,14 +64,21 @@
   }
 
   &__img--container {
-    max-width: 15rem;
+    max-width: 30rem;
     padding: 1.6rem;
     width: 100%;
+    @media (min-width: 31.25em) {
+      max-width: 15rem;
+    }
   }
 
   &__img {
-    width: 12rem;
-    height: 7rem;
+    width: 27rem;
+    height: 13.5rem;
+    @media (min-width: 31.25em) {
+      width: 12rem;
+      height: 7rem;
+    }
     object-fit: cover;
   }
 
