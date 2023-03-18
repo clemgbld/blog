@@ -1,12 +1,22 @@
 import create from "zustand/vanilla";
 
-type Subscripton = {
+type SubscriptionGateway = {
+  subscribe: (email: string) => Promise<void>;
+};
+
+type Subscription = {
   email: string;
   updateUserEmail: (email: string) => void;
 };
 
-export const createSubscriptionStore = () =>
-  create<Subscripton>((set) => ({
+type SubscriptionStoreDependency = {
+  subscriptionGateway: SubscriptionGateway;
+};
+
+export const createSubscriptionStore = (
+  dependency: SubscriptionStoreDependency
+) =>
+  create<Subscription>((set) => ({
     email: "",
     updateUserEmail: (email: string) => set({ email }),
   }));
