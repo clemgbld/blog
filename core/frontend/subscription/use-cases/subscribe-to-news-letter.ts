@@ -1,15 +1,9 @@
 import create from "zustand/vanilla";
+import { SubscriptionGateway } from "../port/subscription-gateway";
+import { NotificationService } from "../../port/notification-service";
+import { NOTIFICATION } from "../subscription-constants";
 
-type SubscriptionGateway = {
-  subscribe: (email: string) => Promise<void>;
-};
-
-type NotificationService = {
-  success: (message: string) => void;
-  error: (message: string) => void;
-};
-
-type Subscription = {
+type SubscriptionStore = {
   email: string;
   isLoading: false;
   updateUserEmail: (email: string) => void;
@@ -25,13 +19,13 @@ export const createSubscriptionStore = ({
   subscriptionGateway,
   notificationService,
 }: SubscriptionStoreDependency) =>
-  create<Subscription>((set, getState) => ({
+  create<SubscriptionStore>((set, getState) => ({
     email: "",
     isLoading: false,
     updateUserEmail: (email: string) => set({ email }),
     subscribeBlogReader: async () => {
       await subscriptionGateway.subscribe(getState().email);
-      notificationService.success("Successfully subscribed to the news letter");
+      notificationService.success(NOTIFICATION.SUCCESS);
       getState().updateUserEmail("");
     },
   }));

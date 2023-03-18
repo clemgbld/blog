@@ -1,27 +1,8 @@
 import { createSubscriptionStore } from "../subscribe-to-news-letter";
+import { buildInMemorySubscriptionGateway } from "../../../../../infrastructure/frontend/subscription/in-memory-subscription-gateway";
+import { buildInMemoryNotificationService } from "../../../../../infrastructure/frontend/notification/in-memory-notification-service";
 
-type InMemorySubscriptionGatewayProps = {
-  spy?: (email: string) => Promise<void>;
-};
-
-type inMemoryNotificationServiceProps = {
-  successSpy?: (message: string) => void;
-  errorSpy?: (message: string) => void;
-};
-
-const buildInMemorySubscriptionGateway = ({
-  spy,
-}: InMemorySubscriptionGatewayProps) => ({
-  subscribe: spy ? spy : async (email: string) => Promise.resolve(),
-});
-
-const buildInMemoryNotificationService = ({
-  successSpy,
-  errorSpy,
-}: inMemoryNotificationServiceProps) => ({
-  success: successSpy ? successSpy : (message: string) => {},
-  error: errorSpy ? errorSpy : (message: string) => {},
-});
+beforeEach(() => {});
 
 describe("subscribe a new user to the blog news letter", () => {
   describe("user email handling", () => {
