@@ -1,7 +1,7 @@
 import { FC, SetStateAction } from "react";
 
-import { calcNumPages } from "../../../core/frontend/articles/pagination/pagination";
-import { allArticlesFormatted } from "../../../core/frontend/articles/formatting/format-articles";
+import { calcNumPages } from "../../../core/frontend/articles/selectors/pagination/pagination";
+import { allArticlesFormatted } from "../../../core/frontend/articles/selectors/formatting/format-articles";
 import classNames from "./PaginationFooter.module.scss";
 
 type PaginationFooterProps = {

@@ -1,5 +1,5 @@
 import { allArticlesFormatted } from "../format-articles";
-import { articleBuilder } from "../../utils/article-builder";
+import { articleBuilder } from "../../../utils/article-builder";
 
 const articles = [articleBuilder()];
 

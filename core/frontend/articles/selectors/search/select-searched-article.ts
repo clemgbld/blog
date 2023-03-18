@@ -1,6 +1,6 @@
 import { compose } from "ramda";
 import { curry } from "ramda";
-import { Article } from "../../../backend/articles/entities/articles";
+import { Article } from "../../../../backend/articles/entities/articles";
 
 const extractTextField = (str?: string) =>
   str?.match(/"(text)":("([^""]+)"|\[[^[]+])/gim);

@@ -1,4 +1,4 @@
-import { articleBuilder } from "../../utils/article-builder";
+import { articleBuilder } from "../../../utils/article-builder";
 import { sortByMostRecent } from "../sort-by-most-recent";
 
 describe("sort by most recent", () => {

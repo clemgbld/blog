@@ -1,7 +1,7 @@
 "use client";
 import { Link } from "react-scroll";
 import { Article } from "../../core/backend/articles/entities/articles";
-import { buildTableOfContent } from "../../core/frontend/articles/build-table-of-content/build-table-of-content";
+import { buildTableOfContent } from "../../core/frontend/articles/selectors/build-table-of-content/build-table-of-content";
 import classNames from "./ArticleTableOfContent.module.scss";
 
 const ArticleTableOfContent = ({ article }: { article: Article }) => {

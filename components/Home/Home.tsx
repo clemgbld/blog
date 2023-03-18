@@ -6,8 +6,8 @@ import { Article } from "../../core/backend/articles/entities/articles";
 import ArticleCard from "./ArticleCard/ArticleCard";
 import Tag from "./Tag/Tag";
 import PaginationFooter from "./PaginationFooter/PaginationFooter";
-import { allArticlesFormatted } from "../../core/frontend/articles/formatting/format-articles";
-import { searchSelector } from "../../core/frontend/articles/search/select-searched-article";
+import { allArticlesFormatted } from "../../core/frontend/articles/selectors/formatting/format-articles";
+import { searchSelector } from "../../core/frontend/articles/selectors/search/select-searched-article";
 import { useSearchStore } from "../../hooks/useSearchStore";
 import {
   allTopics,
@@ -15,14 +15,14 @@ import {
   selectArticlesBasedOnTopic,
   handleSelectedTopics,
   ALL_ARTICLES,
-} from "../../core/frontend/articles/topics/topics";
-import { sortByMostRecent } from "../../core/frontend/articles/sort-by-most-recent/sort-by-most-recent";
+} from "../../core/frontend/articles/selectors/topics/topics";
+import { sortByMostRecent } from "../../core/frontend/articles/selectors/sort-by-most-recent/sort-by-most-recent";
 import classNames from "./Home.module.scss";
 import {
   ARTICLES_PER_PAGE,
   selectArticlesOnPage,
   shycronisePaginationWithOtherFilters,
-} from "../../core/frontend/articles/pagination/pagination";
+} from "../../core/frontend/articles/selectors/pagination/pagination";
 
 type HomeProps = {
   articles: Article[];

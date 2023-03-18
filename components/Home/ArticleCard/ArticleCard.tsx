@@ -2,9 +2,9 @@
 import { FC } from "react";
 import Link from "next/link";
 
-import { FormattedArticle } from "../../../core/frontend/articles/formatting/format-articles";
+import { FormattedArticle } from "../../../core/frontend/articles/selectors/formatting/format-articles";
 
-import { selectFirstImg } from "../../../core/frontend/articles/select-first-img/select-first-img";
+import { selectFirstImg } from "../../../core/frontend/articles/selectors/select-first-img/select-first-img";
 import classNames from "./ArticleCard.module.scss";
 import { AiOutlineCalendar, AiOutlineCoffee } from "react-icons/ai";
 import { MdOutlineTopic } from "react-icons/md";

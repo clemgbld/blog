@@ -1,6 +1,6 @@
 import { pipe, curry, map } from "ramda";
-import { Article } from "../../../backend/articles/entities/articles";
-import { removeUndefinedAndDuplicate } from "../../utils/helper/helper";
+import { Article } from "../../../../backend/articles/entities/articles";
+import { removeUndefinedAndDuplicate } from "../../../utils/helper/helper";
 
 export const ALL_ARTICLES = "all articles";
 

@@ -1,4 +1,4 @@
-import { articleBuilder } from "../../utils/article-builder";
+import { articleBuilder } from "../../../utils/article-builder";
 import { buildTableOfContent } from "../build-table-of-content";
 
 describe("build table of content", () => {

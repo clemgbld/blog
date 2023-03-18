@@ -8,7 +8,7 @@ import {
 import Home from "../Home";
 import Header from "../../common/Header/Header";
 import { useSearchStore } from "../../../hooks/useSearchStore";
-import { ARTICLES_PER_PAGE } from "../../../core/frontend/articles/pagination/pagination";
+import { ARTICLES_PER_PAGE } from "../../../core/frontend/articles/selectors/pagination/pagination";
 
 jest.mock("next/navigation", () => ({
   usePathname: () => "/",

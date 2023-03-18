@@ -1,5 +1,5 @@
-import { Article } from "../../../backend/articles/entities/articles";
-import { formatDateDDMMYYYY } from "../../utils/date/format-date";
+import { Article } from "../../../../backend/articles/entities/articles";
+import { formatDateDDMMYYYY } from "../../../utils/date/format-date";
 
 export type FormattedArticle = {
   id: string;

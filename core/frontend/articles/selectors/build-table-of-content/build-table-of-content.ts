@@ -1,4 +1,4 @@
-import { Article } from "../../../backend/articles/entities/articles";
+import { Article } from "../../../../backend/articles/entities/articles";
 
 export const buildTableOfContent = (article: Article) =>
   article.content.reduce(
