@@ -12,52 +12,71 @@ beforeEach(() => {
   errorNotificationSpy: jest.fn();
 });
 
+const setupSubscriptionStore = ({
+  subscribeSpy,
+  successNotificationSpy,
+  errorNotificationSpy,
+}: {
+  subscribeSpy?: (email: string) => Promise<void>;
+  successNotificationSpy?: (message: string) => void;
+  errorNotificationSpy?: (message: string) => void;
+}) => {
+  const subscriptionGateway = buildInMemorySubscriptionGateway({
+    spy: subscribeSpy,
+  });
+  const notificationService = buildInMemoryNotificationService({
+    successSpy: successNotificationSpy,
+    errorSpy: errorNotificationSpy,
+  });
+  const { getState } = createSubscriptionStore({
+    subscriptionGateway,
+    notificationService,
+  });
+
+  return {
+    getCurrentEmailState: () => getState().email,
+    getCurrentLoadingState: () => getState().isLoading,
+    updateUserEmail: getState().updateUserEmail,
+    subscribeBlogReader: getState().subscribeBlogReader,
+  };
+};
+
 describe("subscribe a new user to the blog news letter", () => {
   describe("user email handling", () => {
     it("should have an empty email initially", () => {
-      const subscriptionGateway = buildInMemorySubscriptionGateway({});
-      const notificationService = buildInMemoryNotificationService({});
-      const subscriptionStore = createSubscriptionStore({
-        subscriptionGateway,
-        notificationService,
-      });
-      expect(subscriptionStore.getState().email).toBe("");
+      const { getCurrentEmailState } = setupSubscriptionStore({});
+      expect(getCurrentEmailState()).toBe("");
     });
 
     it("should update the user email", () => {
-      const subscriptionGateway = buildInMemorySubscriptionGateway({});
-      const notificationService = buildInMemoryNotificationService({});
-      const subscriptionStore = createSubscriptionStore({
-        subscriptionGateway,
-        notificationService,
-      });
-      subscriptionStore.getState().updateUserEmail("example@hotmail.fr");
-      expect(subscriptionStore.getState().email).toBe("example@hotmail.fr");
+      const { getCurrentEmailState, updateUserEmail } = setupSubscriptionStore(
+        {}
+      );
+      updateUserEmail("example@hotmail.fr");
+      expect(getCurrentEmailState()).toBe("example@hotmail.fr");
     });
   });
 
   describe("subscription handling", () => {
     it("should sucessfully subscriber the user to the blog news letter", async () => {
-      const notificationService = buildInMemoryNotificationService({
-        successSpy: successNotificationSpy,
+      const {
+        getCurrentEmailState,
+        updateUserEmail,
+        getCurrentLoadingState,
+        subscribeBlogReader,
+      } = setupSubscriptionStore({
+        successNotificationSpy,
+        subscribeSpy,
       });
 
-      const subscriptionGateway = buildInMemorySubscriptionGateway({
-        spy: subscribeSpy,
-      });
-      const subscriptionStore = createSubscriptionStore({
-        subscriptionGateway,
-        notificationService,
-      });
-
-      subscriptionStore.getState().updateUserEmail("example@hotmail.fr");
-      await subscriptionStore.getState().subscribeBlogReader();
+      updateUserEmail("example@hotmail.fr");
+      await subscribeBlogReader();
       expect(subscribeSpy).toHaveBeenCalledWith("example@hotmail.fr");
       expect(successNotificationSpy).toHaveBeenCalledWith(
         "Successfully subscribed to the news letter"
       );
-      expect(subscriptionStore.getState().email).toBe("");
-      expect(subscriptionStore.getState().isLoading).toBe(false);
+      expect(getCurrentEmailState()).toBe("");
+      expect(getCurrentLoadingState()).toBe(false);
     });
   });
 });
