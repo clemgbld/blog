@@ -9,20 +9,24 @@ let subscribeSpy: (email: string) => Promise<void>,
 beforeEach(() => {
   subscribeSpy = jest.fn().mockResolvedValue(undefined);
   successNotificationSpy = jest.fn();
-  errorNotificationSpy: jest.fn();
+  errorNotificationSpy = jest.fn();
 });
 
 const setupSubscriptionStore = ({
   subscribeSpy,
   successNotificationSpy,
   errorNotificationSpy,
+  isSubscriptionError,
 }: {
   subscribeSpy?: (email: string) => Promise<void>;
   successNotificationSpy?: (message: string) => void;
   errorNotificationSpy?: (message: string) => void;
+  isSubscriptionError?: boolean;
 }) => {
+  console.log(errorNotificationSpy);
   const subscriptionGateway = buildInMemorySubscriptionGateway({
     spy: subscribeSpy,
+    isSubscriptionError,
   });
   const notificationService = buildInMemoryNotificationService({
     successSpy: successNotificationSpy,
@@ -75,6 +79,23 @@ describe("subscribe a new user to the blog news letter", () => {
       expect(successNotificationSpy).toHaveBeenCalledWith(
         "Successfully subscribed to the news letter"
       );
+      expect(getCurrentEmailState()).toBe("");
+      expect(getCurrentLoadingState()).toBe(false);
+    });
+
+    it("should notify the user when there is an error during the subscription process", async () => {
+      const {
+        getCurrentEmailState,
+        updateUserEmail,
+        getCurrentLoadingState,
+        subscribeBlogReader,
+      } = setupSubscriptionStore({
+        errorNotificationSpy: errorNotificationSpy,
+        isSubscriptionError: true,
+      });
+      updateUserEmail("example@hotmail.fr");
+      await subscribeBlogReader();
+      expect(errorNotificationSpy).toHaveBeenCalledWith("Something went wrong");
       expect(getCurrentEmailState()).toBe("");
       expect(getCurrentLoadingState()).toBe(false);
     });

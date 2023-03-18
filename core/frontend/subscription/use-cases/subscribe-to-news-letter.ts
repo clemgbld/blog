@@ -25,8 +25,14 @@ export const createSubscriptionStore = ({
     updateUserEmail: (email: string) => set({ email }),
     subscribeBlogReader: async () => {
       set({ isLoading: true });
-      await subscriptionGateway.subscribe(getState().email);
-      notificationService.success(NOTIFICATION.SUCCESS);
+      try {
+        await subscriptionGateway.subscribe(getState().email);
+        notificationService.success(NOTIFICATION.SUCCESS);
+      } catch (e) {
+        if (e instanceof Error) {
+          notificationService.error(e.message);
+        }
+      }
       getState().updateUserEmail("");
       set({ isLoading: false });
     },
