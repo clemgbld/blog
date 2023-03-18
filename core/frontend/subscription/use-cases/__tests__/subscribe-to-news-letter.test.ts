@@ -78,5 +78,13 @@ describe("subscribe a new user to the blog news letter", () => {
       expect(getCurrentEmailState()).toBe("");
       expect(getCurrentLoadingState()).toBe(false);
     });
+
+    it("should informs the user that the subscription operation is loading", () => {
+      const { updateUserEmail, getCurrentLoadingState, subscribeBlogReader } =
+        setupSubscriptionStore({});
+      updateUserEmail("example@hotmail.fr");
+      subscribeBlogReader();
+      expect(getCurrentLoadingState()).toBe(true);
+    });
   });
 });

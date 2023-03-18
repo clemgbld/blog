@@ -5,7 +5,7 @@ import { NOTIFICATION } from "../subscription-constants";
 
 type SubscriptionStore = {
   email: string;
-  isLoading: false;
+  isLoading: boolean;
   updateUserEmail: (email: string) => void;
   subscribeBlogReader: () => Promise<void>;
 };
@@ -24,8 +24,10 @@ export const createSubscriptionStore = ({
     isLoading: false,
     updateUserEmail: (email: string) => set({ email }),
     subscribeBlogReader: async () => {
+      set({ isLoading: true });
       await subscriptionGateway.subscribe(getState().email);
       notificationService.success(NOTIFICATION.SUCCESS);
       getState().updateUserEmail("");
+      set({ isLoading: false });
     },
   }));
