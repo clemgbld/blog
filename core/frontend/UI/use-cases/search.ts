@@ -1,12 +1,12 @@
 import create from "zustand/vanilla";
 
-type Search = {
+type SearchStore = {
   searchTerms: string;
   setSearchTerms: (searchTerms: string) => void;
 };
 
 export const createSearchStore = () =>
-  create<Search>((set) => ({
+  create<SearchStore>((set) => ({
     searchTerms: "",
     setSearchTerms: (searchTerms: string) => set({ searchTerms }),
   }));
