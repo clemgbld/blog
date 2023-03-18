@@ -2,7 +2,15 @@ import { createSubscriptionStore } from "../subscribe-to-news-letter";
 import { buildInMemorySubscriptionGateway } from "../../../../../infrastructure/frontend/subscription/in-memory-subscription-gateway";
 import { buildInMemoryNotificationService } from "../../../../../infrastructure/frontend/notification/in-memory-notification-service";
 
-beforeEach(() => {});
+let subscribeSpy: (email: string) => Promise<void>,
+  successNotificationSpy: (message: string) => void,
+  errorNotificationSpy: (message: string) => void;
+
+beforeEach(() => {
+  subscribeSpy = jest.fn().mockResolvedValue(undefined);
+  successNotificationSpy = jest.fn();
+  errorNotificationSpy: jest.fn();
+});
 
 describe("subscribe a new user to the blog news letter", () => {
   describe("user email handling", () => {
@@ -30,9 +38,6 @@ describe("subscribe a new user to the blog news letter", () => {
 
   describe("subscription handling", () => {
     it("should sucessfully subscriber the user to the blog news letter", async () => {
-      const subscribeSpy = jest.fn().mockResolvedValue(undefined);
-      const successNotificationSpy = jest.fn();
-
       const notificationService = buildInMemoryNotificationService({
         successSpy: successNotificationSpy,
       });
