@@ -23,7 +23,6 @@ const setupSubscriptionStore = ({
   errorNotificationSpy?: (message: string) => void;
   isSubscriptionError?: boolean;
 }) => {
-  console.log(errorNotificationSpy);
   const subscriptionGateway = buildInMemorySubscriptionGateway({
     spy: subscribeSpy,
     isSubscriptionError,
@@ -42,14 +41,21 @@ const setupSubscriptionStore = ({
     getCurrentLoadingState: () => getState().isLoading,
     updateUserEmail: getState().updateUserEmail,
     subscribeBlogReader: getState().subscribeBlogReader,
+    getCurrentErrorMessage: () => getState().errorMessage,
   };
 };
 
 describe("subscribe a new user to the blog news letter", () => {
   describe("user email handling", () => {
-    it("should have an empty email initially", () => {
-      const { getCurrentEmailState } = setupSubscriptionStore({});
+    it("should have an empty email, not loading, empty error message initially", () => {
+      const {
+        getCurrentEmailState,
+        getCurrentLoadingState,
+        getCurrentErrorMessage,
+      } = setupSubscriptionStore({});
       expect(getCurrentEmailState()).toBe("");
+      expect(getCurrentLoadingState()).toBe(false);
+      expect(getCurrentErrorMessage()).toBe("");
     });
 
     it("should update the user email", () => {
@@ -106,6 +112,35 @@ describe("subscribe a new user to the blog news letter", () => {
       updateUserEmail("example@hotmail.fr");
       subscribeBlogReader();
       expect(getCurrentLoadingState()).toBe(true);
+    });
+  });
+
+  describe("client email validation", () => {
+    it('should display the error message "Email is required" when the user try to subscribed with an empty email', async () => {
+      const {
+        getCurrentErrorMessage,
+        subscribeBlogReader,
+        getCurrentLoadingState,
+      } = setupSubscriptionStore({
+        subscribeSpy,
+      });
+
+      await subscribeBlogReader();
+
+      expect(subscribeSpy).not.toHaveBeenCalled();
+      expect(getCurrentLoadingState()).toBe(false);
+      expect(getCurrentErrorMessage()).toBe("Email is required");
+    });
+
+    it('should display the error message "Enter an email address with less than 320 characters" when the user try to subscribed with an email that is too long', async () => {
+      const { getCurrentErrorMessage, subscribeBlogReader, updateUserEmail } =
+        setupSubscriptionStore({});
+
+      updateUserEmail(`example${"e".repeat(303)}@hotmail.fr`);
+      await subscribeBlogReader();
+      expect(getCurrentErrorMessage()).toBe(
+        "Enter an email address with less than 320 characters"
+      );
     });
   });
 });
