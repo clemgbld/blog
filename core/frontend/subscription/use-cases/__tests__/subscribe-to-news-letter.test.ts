@@ -142,5 +142,15 @@ describe("subscribe a new user to the blog news letter", () => {
         "Enter an email address with less than 320 characters"
       );
     });
+
+    it('should display the error message "Email adress should be a valid address email" when the the user try to subscribed with an invalid email address', async () => {
+      const { getCurrentErrorMessage, subscribeBlogReader, updateUserEmail } =
+        setupSubscriptionStore({});
+      updateUserEmail(`example@hotmail.`);
+      await subscribeBlogReader();
+      expect(getCurrentErrorMessage()).toBe(
+        "Email adress should be a valid address email"
+      );
+    });
   });
 });
