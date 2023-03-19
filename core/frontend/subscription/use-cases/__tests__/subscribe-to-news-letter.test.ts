@@ -31,7 +31,7 @@ const setupSubscriptionStore = ({
     successSpy: successNotificationSpy,
     errorSpy: errorNotificationSpy,
   });
-  const { getState } = createSubscriptionStore({
+  const { getState, setState } = createSubscriptionStore({
     subscriptionGateway,
     notificationService,
   });
@@ -42,6 +42,8 @@ const setupSubscriptionStore = ({
     updateUserEmail: getState().updateUserEmail,
     subscribeBlogReader: getState().subscribeBlogReader,
     getCurrentErrorMessage: () => getState().errorMessage,
+    resetErrorMessage: getState().resetErrorMessage,
+    setState,
   };
 };
 
@@ -64,6 +66,18 @@ describe("subscribe a new user to the blog news letter", () => {
       );
       updateUserEmail("example@hotmail.fr");
       expect(getCurrentEmailState()).toBe("example@hotmail.fr");
+    });
+  });
+
+  describe("reset error message", () => {
+    it("should reset the error message when the user try to modify a wrongly entered email", () => {
+      const { resetErrorMessage, getCurrentErrorMessage, setState } =
+        setupSubscriptionStore({});
+      setState({
+        errorMessage: "Email adress should be a valid address email",
+      });
+      resetErrorMessage();
+      expect(getCurrentErrorMessage()).toBe("");
     });
   });
 

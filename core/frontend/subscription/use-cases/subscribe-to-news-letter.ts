@@ -1,11 +1,7 @@
 import create from "zustand/vanilla";
 import { SubscriptionGateway } from "../port/subscription-gateway";
 import { NotificationService } from "../../port/notification-service";
-import {
-  NOTIFICATION,
-  ERROR_MESSAGES,
-  MAX_EMAIL_CHARACTERS,
-} from "../subscription-constants";
+import { NOTIFICATION } from "../subscription-constants";
 import { validateEmail } from "../validation/validate-email-service";
 
 type SubscriptionStore = {
@@ -14,6 +10,7 @@ type SubscriptionStore = {
   errorMessage: string;
   updateUserEmail: (email: string) => void;
   subscribeBlogReader: () => Promise<void>;
+  resetErrorMessage: () => void;
 };
 
 type SubscriptionStoreDependency = {
@@ -30,6 +27,7 @@ export const createSubscriptionStore = ({
     isLoading: false,
     errorMessage: "",
     updateUserEmail: (email: string) => set({ email }),
+    resetErrorMessage: () => set({ errorMessage: "" }),
     subscribeBlogReader: async () => {
       const { email, updateUserEmail } = getState();
       const errorMessage = validateEmail(email);
