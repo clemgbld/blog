@@ -2,14 +2,7 @@ import {
   ERROR_MESSAGES,
   MAX_EMAIL_CHARACTERS,
 } from "../subscription-constants";
-
-export const pipeValidators =
-  (...validators: Function[]) =>
-  (...params: string[]) =>
-    validators.reduce(
-      (error, validator) => error || validator(...params),
-      undefined
-    );
+import { pipeValidators } from "../../utils/validators/pipe-validators";
 
 const EMAIL_VALIDATION_REGEX =
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
