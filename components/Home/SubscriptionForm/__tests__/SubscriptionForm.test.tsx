@@ -18,5 +18,9 @@ describe("SubscriptionForm", () => {
         <SubscriptionForm />
       </SubscriptionProvider>
     );
+
+    const subscriptionInput = screen.getByLabelText(
+      "Subscribe to the news letter"
+    );
   });
 });

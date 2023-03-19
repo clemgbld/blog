@@ -1,7 +1,14 @@
 "use client";
 
 const SubscriptionForm = () => {
-  return <div>SubscriptionForm</div>;
+  return (
+    <form>
+      <div>
+        <label htmlFor="subscription">Subscribe to the news letter</label>
+        <input type="text" id="subscription" />
+      </div>
+    </form>
+  );
 };
 
 export default SubscriptionForm;
