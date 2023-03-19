@@ -6,6 +6,7 @@ import {
   ERROR_MESSAGES,
   MAX_EMAIL_CHARACTERS,
 } from "../subscription-constants";
+import { validateEmail } from "../validation/validate-email-service";
 
 type SubscriptionStore = {
   email: string;
@@ -31,11 +32,8 @@ export const createSubscriptionStore = ({
     updateUserEmail: (email: string) => set({ email }),
     subscribeBlogReader: async () => {
       const { email, updateUserEmail } = getState();
-      if (!email) return set({ errorMessage: ERROR_MESSAGES.EMPTY });
-      if (email.length > MAX_EMAIL_CHARACTERS)
-        return set({
-          errorMessage: ERROR_MESSAGES.TOO_LONG,
-        });
+      const errorMessage = validateEmail(email);
+      if (errorMessage) return set({ errorMessage });
       set({ isLoading: true });
       try {
         await subscriptionGateway.subscribe(email);
