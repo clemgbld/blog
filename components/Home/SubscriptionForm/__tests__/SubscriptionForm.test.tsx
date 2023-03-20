@@ -31,5 +31,9 @@ describe("SubscriptionForm", () => {
     await waitFor(() => {
       expect(subscribeSpy).toHaveBeenCalledWith("example@hotmail.fr");
     });
+
+    expect(
+      screen.getByText("Successfully subscribed to the news letter")
+    ).toBeInTheDocument();
   });
 });
