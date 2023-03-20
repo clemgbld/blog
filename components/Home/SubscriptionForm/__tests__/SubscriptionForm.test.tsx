@@ -6,7 +6,7 @@ import SubscriptionForm from "../SubscriptionForm";
 import { SubscriptionProvider } from "../../../../providers/SubscriptionProvider";
 
 describe("SubscriptionForm", () => {
-  it("should subscribe the user to the news letter", async () => {
+  it("should subscribe the user to the newsletter", async () => {
     const subscribeSpy = jest.fn();
 
     render(
@@ -33,7 +33,7 @@ describe("SubscriptionForm", () => {
     });
 
     expect(
-      screen.getByText("Successfully subscribed to the news letter")
+      screen.getByText("Successfully subscribed to the newsletter")
     ).toBeInTheDocument();
 
     expect(screen.getByLabelText("Your best email:")).toHaveValue("");

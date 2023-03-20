@@ -1,5 +1,5 @@
 export const NOTIFICATION = {
-  SUCCESS: "Successfully subscribed to the news letter",
+  SUCCESS: "Successfully subscribed to the newsletter",
 };
 
 export const MAX_EMAIL_CHARACTERS = 320;

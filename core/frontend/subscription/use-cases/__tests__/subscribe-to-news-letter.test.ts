@@ -47,7 +47,7 @@ const setupSubscriptionStore = ({
   };
 };
 
-describe("subscribe a new user to the blog news letter", () => {
+describe("subscribe a new user to the blog newsletter", () => {
   describe("user email handling", () => {
     it("should have an empty email, not loading, empty error message initially", () => {
       const {
@@ -82,7 +82,7 @@ describe("subscribe a new user to the blog news letter", () => {
   });
 
   describe("subscription handling", () => {
-    it("should sucessfully subscriber the user to the blog news letter", async () => {
+    it("should sucessfully subscriber the user to the blog newsletter", async () => {
       const {
         getCurrentEmailState,
         updateUserEmail,
@@ -97,7 +97,7 @@ describe("subscribe a new user to the blog news letter", () => {
       await subscribeBlogReader();
       expect(subscribeSpy).toHaveBeenCalledWith("example@hotmail.fr");
       expect(successNotificationSpy).toHaveBeenCalledWith(
-        "Successfully subscribed to the news letter"
+        "Successfully subscribed to the newsletter"
       );
       expect(getCurrentEmailState()).toBe("");
       expect(getCurrentLoadingState()).toBe(false);
