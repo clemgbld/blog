@@ -10,7 +10,9 @@ const SubscriptionForm = () => {
     subscribeBlogReader,
     errorMessage,
     resetErrorMessage,
+    isLoading,
   } = subscriptionStore((state) => state);
+
   return (
     <>
       <form>
@@ -22,6 +24,7 @@ const SubscriptionForm = () => {
             onFocus={() => resetErrorMessage()}
             type="text"
             id="subscription"
+            name="subscription"
             placeholder="your.email@exemple.com"
           />
           <p>{errorMessage}</p>
@@ -31,8 +34,10 @@ const SubscriptionForm = () => {
               await subscribeBlogReader();
             }}
             type="submit"
+            disabled={isLoading}
           >
             Subscribe
+            {isLoading && <span role="progressbar" />}
           </button>
         </div>
       </form>
