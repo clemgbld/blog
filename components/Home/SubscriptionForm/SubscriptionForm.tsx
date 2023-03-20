@@ -17,6 +17,7 @@ const SubscriptionForm = () => {
             onChange={({ target: { value } }) => updateUserEmail(value)}
             type="text"
             id="subscription"
+            placeholder="your.email@exemple.com"
           />
           <button
             onClick={async (e) => {

@@ -35,5 +35,33 @@ describe("SubscriptionForm", () => {
     expect(
       screen.getByText("Successfully subscribed to the news letter")
     ).toBeInTheDocument();
+
+    expect(screen.getByLabelText("Your best email:")).toHaveValue("");
   });
+
+  it("should dispaly an error notification when the subscripton goes wrong", async () => {
+    render(
+      <SubscriptionProvider
+        notificationService={notificationService}
+        subscriptionGateway={buildInMemorySubscriptionGateway({
+          isSubscriptionError: true,
+        })}
+      >
+        <SubscriptionForm />
+      </SubscriptionProvider>
+    );
+    const subscriptionInput = screen.getByLabelText("Your best email:");
+
+    await userEvent.type(subscriptionInput, "example@hotmail.fr");
+
+    const submitButton = screen.getByRole("button");
+
+    await userEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(screen.getByText("Something went wrong")).toBeInTheDocument();
+    });
+  });
+
+  it("should ", () => {});
 });
