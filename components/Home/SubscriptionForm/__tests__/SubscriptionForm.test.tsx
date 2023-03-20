@@ -63,5 +63,51 @@ describe("SubscriptionForm", () => {
     });
   });
 
-  it("should ", () => {});
+  it("should display an error message when the user try to submit an non valid email", async () => {
+    render(
+      <SubscriptionProvider
+        notificationService={notificationService}
+        subscriptionGateway={buildInMemorySubscriptionGateway({})}
+      >
+        <SubscriptionForm />
+      </SubscriptionProvider>
+    );
+
+    const subscriptionInput = screen.getByLabelText("Your best email:");
+
+    await userEvent.type(subscriptionInput, "example@hotmail");
+
+    const submitButton = screen.getByRole("button");
+
+    await userEvent.click(submitButton);
+
+    expect(
+      screen.getByText("Email adress should be a valid address email")
+    ).toBeInTheDocument();
+  });
+
+  it("should have no error message when the user submit a wrong email and try to type another email", async () => {
+    render(
+      <SubscriptionProvider
+        notificationService={notificationService}
+        subscriptionGateway={buildInMemorySubscriptionGateway({})}
+      >
+        <SubscriptionForm />
+      </SubscriptionProvider>
+    );
+
+    const subscriptionInput = screen.getByLabelText("Your best email:");
+
+    await userEvent.type(subscriptionInput, "example@hotmail");
+
+    const submitButton = screen.getByRole("button");
+
+    await userEvent.click(submitButton);
+
+    await userEvent.type(subscriptionInput, ".fr");
+
+    expect(
+      screen.queryByText("Email adress should be a valid address email")
+    ).not.toBeInTheDocument();
+  });
 });
