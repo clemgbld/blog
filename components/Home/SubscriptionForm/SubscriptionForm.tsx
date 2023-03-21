@@ -1,6 +1,7 @@
 "use client";
 import { useSubscriptionStore } from "../../../providers/SubscriptionProvider";
 import { ToastContainer } from "react-toastify";
+import classNames from "./SubscriptionForm.module.scss";
 
 const SubscriptionForm = () => {
   const subscriptionStore = useSubscriptionStore();
@@ -16,31 +17,34 @@ const SubscriptionForm = () => {
   return (
     <>
       <div>
-        <h2>Subscribe to my newsletter:</h2>
+        <h2 className={classNames.title}>Subscribe to my newsletter:</h2>
         <form>
           <div>
             <label htmlFor="subscription">Your best email:</label>
-            <input
-              value={email}
-              onChange={({ target: { value } }) => updateUserEmail(value)}
-              onFocus={() => resetErrorMessage()}
-              type="text"
-              id="subscription"
-              name="subscription"
-              placeholder="your.email@exemple.com"
-            />
+            <div>
+              <input
+                value={email}
+                onChange={({ target: { value } }) => updateUserEmail(value)}
+                onFocus={() => resetErrorMessage()}
+                type="text"
+                id="subscription"
+                name="subscription"
+                placeholder="your.email@exemple.com"
+              />
 
-            <button
-              onClick={async (e) => {
-                e.preventDefault();
-                await subscribeBlogReader();
-              }}
-              type="submit"
-              disabled={isLoading}
-            >
-              Subscribe
-              {isLoading && <span role="progressbar" />}
-            </button>
+              <button
+                onClick={async (e) => {
+                  e.preventDefault();
+                  await subscribeBlogReader();
+                }}
+                type="submit"
+                disabled={isLoading}
+              >
+                Subscribe
+                {isLoading && <span role="progressbar" />}
+              </button>
+            </div>
+
             {!!errorMessage && <p>{errorMessage}</p>}
           </div>
         </form>

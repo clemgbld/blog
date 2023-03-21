@@ -89,20 +89,23 @@ const Home: FC<HomeProps> = ({
           setCurrentPage={setCurrentPage}
         />
       </div>
-      <div>
-        <h2 className={classNames.title}>Topics:</h2>
-        <div className={classNames.tags}>
-          {allTopics(articles).map((topic) => (
-            <Tag
-              className={
-                currentTopics.includes(topic) ? classNames["tag--active"] : ""
-              }
-              key={topic}
-              onClick={() => setCurrentTopics(handleSelectedTopics(topic))}
-              label={`${topic} (${countArticlesInTopic(topic, articles)})`}
-            />
-          ))}
+      <div className={classNames["right-section"]}>
+        <div>
+          <h2 className={classNames.title}>Topics:</h2>
+          <div className={classNames.tags}>
+            {allTopics(articles).map((topic) => (
+              <Tag
+                className={
+                  currentTopics.includes(topic) ? classNames["tag--active"] : ""
+                }
+                key={topic}
+                onClick={() => setCurrentTopics(handleSelectedTopics(topic))}
+                label={`${topic} (${countArticlesInTopic(topic, articles)})`}
+              />
+            ))}
+          </div>
         </div>
+
         <SubscriptionProvider
           notificationService={notificationService}
           subscriptionGateway={buildInMemorySubscriptionGateway({
