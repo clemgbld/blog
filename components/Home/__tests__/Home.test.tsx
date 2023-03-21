@@ -77,7 +77,7 @@ describe("Home", () => {
   describe("search feature", () => {
     it("should filter out the first article", async () => {
       renderHome({});
-      const searchBar = screen.getByRole("textbox");
+      const searchBar = screen.getByTestId("search");
       await userEvent.type(searchBar, "React");
       expect(searchBar).toHaveValue("React");
       expect(screen.getAllByTestId("article").length).toBe(1);

@@ -35,6 +35,7 @@ const Header: FC<HeaderProps> = ({ children }) => {
 
           {isInHomePage(pathname) ? (
             <input
+              data-testid="search"
               placeholder="search"
               className={classNames.nav_search}
               type="text"

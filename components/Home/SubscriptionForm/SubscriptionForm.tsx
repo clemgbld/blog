@@ -16,7 +16,7 @@ const SubscriptionForm = () => {
   return (
     <>
       <div>
-        <h2>Subscribe to my newsletter</h2>
+        <h2>Subscribe to my newsletter:</h2>
         <form>
           <div>
             <label htmlFor="subscription">Your best email:</label>
@@ -29,7 +29,7 @@ const SubscriptionForm = () => {
               name="subscription"
               placeholder="your.email@exemple.com"
             />
-            <p>{errorMessage}</p>
+
             <button
               onClick={async (e) => {
                 e.preventDefault();
@@ -41,11 +41,22 @@ const SubscriptionForm = () => {
               Subscribe
               {isLoading && <span role="progressbar" />}
             </button>
+            {!!errorMessage && <p>{errorMessage}</p>}
           </div>
         </form>
       </div>
 
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 };

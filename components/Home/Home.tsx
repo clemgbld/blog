@@ -1,11 +1,15 @@
 "use client";
 import { FC, useState, useMemo, useEffect } from "react";
 import { pipe } from "ramda";
-
+import { injectStyle } from "react-toastify/dist/inject-style";
 import { Article } from "../../core/backend/articles/entities/articles";
 import ArticleCard from "./ArticleCard/ArticleCard";
 import Tag from "./Tag/Tag";
 import PaginationFooter from "./PaginationFooter/PaginationFooter";
+import { buildInMemorySubscriptionGateway } from "../../infrastructure/frontend/subscription/in-memory-subscription-gateway";
+import { notificationService } from "../../infrastructure/frontend/notification/notification-service";
+import { SubscriptionProvider } from "../../providers/SubscriptionProvider";
+import SubscriptionForm from "./SubscriptionForm/SubscriptionForm";
 import { allArticlesFormatted } from "../../core/frontend/articles/selectors/formatting/format-articles";
 import { searchSelector } from "../../core/frontend/articles/selectors/search/select-searched-article";
 import { useSearchStore } from "../../hooks/useSearchStore";
@@ -23,6 +27,10 @@ import {
   selectArticlesOnPage,
   shycronisePaginationWithOtherFilters,
 } from "../../core/frontend/articles/selectors/pagination/pagination";
+
+if (typeof window !== "undefined") {
+  injectStyle();
+}
 
 type HomeProps = {
   articles: Article[];
@@ -95,6 +103,14 @@ const Home: FC<HomeProps> = ({
             />
           ))}
         </div>
+        <SubscriptionProvider
+          notificationService={notificationService}
+          subscriptionGateway={buildInMemorySubscriptionGateway({
+            isSubscriptionError: true,
+          })}
+        >
+          <SubscriptionForm />
+        </SubscriptionProvider>
       </div>
     </div>
   );
