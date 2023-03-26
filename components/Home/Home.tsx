@@ -108,9 +108,7 @@ const Home: FC<HomeProps> = ({
 
         <SubscriptionProvider
           notificationService={notificationService}
-          subscriptionGateway={buildInMemorySubscriptionGateway({
-            isSubscriptionError: true,
-          })}
+          subscriptionGateway={buildInMemorySubscriptionGateway({})}
         >
           <SubscriptionForm />
         </SubscriptionProvider>
