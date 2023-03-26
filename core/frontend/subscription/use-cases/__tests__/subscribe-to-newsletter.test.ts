@@ -1,4 +1,4 @@
-import { createSubscriptionStore } from "../subscribe-to-news-letter";
+import { createSubscriptionStore } from "../subscribe-to-newsletter";
 import { buildInMemorySubscriptionGateway } from "../../../../../infrastructure/frontend/subscription/in-memory-subscription-gateway";
 import { buildInMemoryNotificationService } from "../../../../../infrastructure/frontend/notification/in-memory-notification-service";
 
@@ -67,6 +67,14 @@ describe("subscribe a new user to the blog newsletter", () => {
       updateUserEmail("example@hotmail.fr");
       expect(getCurrentEmailState()).toBe("example@hotmail.fr");
     });
+
+    it("should reset the error message when there is one", () => {
+      const { updateUserEmail, setState, getCurrentErrorMessage } =
+        setupSubscriptionStore({});
+      setState({ errorMessage: "Email is required" });
+      updateUserEmail("example@hotmail.fr");
+      expect(getCurrentErrorMessage()).toBe("");
+    });
   });
 
   describe("reset error message", () => {
@@ -100,6 +108,7 @@ describe("subscribe a new user to the blog newsletter", () => {
         "Successfully subscribed to the newsletter"
       );
       expect(getCurrentEmailState()).toBe("");
+
       expect(getCurrentLoadingState()).toBe(false);
     });
 

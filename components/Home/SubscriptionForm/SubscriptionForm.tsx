@@ -50,7 +50,9 @@ const SubscriptionForm = () => {
               </button>
             </div>
 
-            {!!errorMessage && <p>{errorMessage}</p>}
+            {!!errorMessage && (
+              <p className={classNames.error}>{errorMessage}</p>
+            )}
           </div>
         </form>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, ReactNode } from "react";
 import create from "zustand";
-import { createSubscriptionStore } from "../core/frontend/subscription/use-cases/subscribe-to-news-letter";
+import { createSubscriptionStore } from "../core/frontend/subscription/use-cases/subscribe-to-newsletter";
 import { notificationService } from "../infrastructure/frontend/notification/notification-service";
 import { buildInMemorySubscriptionGateway } from "../infrastructure/frontend/subscription/in-memory-subscription-gateway";
 import { NotificationService } from "../core/frontend/port/notification-service";

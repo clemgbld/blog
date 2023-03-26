@@ -26,7 +26,13 @@ export const createSubscriptionStore = ({
     email: "",
     isLoading: false,
     errorMessage: "",
-    updateUserEmail: (email: string) => set({ email }),
+    updateUserEmail: (email: string) => {
+      const { errorMessage, resetErrorMessage } = getState();
+      if (!!errorMessage) {
+        resetErrorMessage();
+      }
+      set({ email });
+    },
     resetErrorMessage: () => set({ errorMessage: "" }),
     subscribeBlogReader: async () => {
       const { email, updateUserEmail } = getState();
@@ -42,6 +48,7 @@ export const createSubscriptionStore = ({
         }
       }
       updateUserEmail("");
+
       set({ isLoading: false });
     },
   }));
