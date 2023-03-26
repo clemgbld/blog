@@ -22,15 +22,4 @@
     box-shadow: inset 22rem 0 0 0 #08fdd8;
     color: #212529;
   }
-  &:disabled:hover,
-  &:disabled:active {
-    border: solid 1px #ff6b6b;
-    box-shadow: inset 22rem 0 0 0 #ff6b6b !important;
-    cursor: not-allowed !important;
-  }
-
-  &:disabled:hover::after {
-    background: #ffc9c9;
-    z-index: 5;
-  }
 }

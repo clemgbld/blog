@@ -21,7 +21,7 @@ const SubscriptionForm = () => {
         <form>
           <div>
             <label htmlFor="subscription">Your best email:</label>
-            <div>
+            <div className={classNames.container}>
               <input
                 value={email}
                 onChange={({ target: { value } }) => updateUserEmail(value)}
@@ -30,6 +30,7 @@ const SubscriptionForm = () => {
                 id="subscription"
                 name="subscription"
                 placeholder="your.email@exemple.com"
+                className={classNames.input}
               />
 
               <button
@@ -39,9 +40,13 @@ const SubscriptionForm = () => {
                 }}
                 type="submit"
                 disabled={isLoading}
+                className={classNames.button}
               >
-                Subscribe
-                {isLoading && <span role="progressbar" />}
+                {isLoading ? (
+                  <span className={classNames.loader} role="progressbar" />
+                ) : (
+                  "Subscribe"
+                )}
               </button>
             </div>
 
