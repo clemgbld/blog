@@ -45,4 +45,13 @@ describe("mongodb subscription repository", () => {
       email,
     });
   });
+
+  it("should throw an error when we try to insert duplicated email", async () => {
+    const id = generateId();
+    const email = "exemple@hotmail.fr";
+    await subscriptionRepository.subscribeBlogReader({ email, id });
+    await expect(
+      subscriptionRepository.subscribeBlogReader({ email, id })
+    ).rejects.toEqual(new Error("Please try another email"));
+  });
 });
