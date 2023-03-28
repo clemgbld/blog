@@ -2,8 +2,9 @@
  * @jest-environment node
  */
 
-import { MongoClient, Db, ObjectId } from "mongodb";
+import { MongoClient, Db } from "mongodb";
 import { MongoMemoryServer } from "mongodb-memory-server";
+import { generateId } from "../../id-generator/generate-id";
 import { initMemoryDb } from "../../db/db";
 import { buildMongoDbArticlesRepository } from "../mongodb-articles-repository";
 import {
@@ -55,12 +56,12 @@ describe("mongodb articles repository", () => {
         const hiddenFakeArticle = {
           ...fakeArticle2WithContentStringify,
           hide: true,
-          id: new ObjectId().toString(),
+          id: generateId(),
         };
 
         const publishedArticle = {
           ...fakeArticle1WithContentStringify,
-          id: new ObjectId().toString(),
+          id: generateId(),
         };
 
         await db
@@ -78,7 +79,7 @@ describe("mongodb articles repository", () => {
 
     describe("get published article", () => {
       it("should get the expected article", async () => {
-        const id = new ObjectId().toString();
+        const id = generateId();
         const publishedArticle = {
           ...fakeArticle1WithContentStringify,
           id: id,
@@ -92,7 +93,7 @@ describe("mongodb articles repository", () => {
       });
 
       it("should be undefined when the article is not published", async () => {
-        const id = new ObjectId().toString();
+        const id = generateId();
         expect(await articlesRepository.getPublishedArticle(id)).toEqual(
           undefined
         );

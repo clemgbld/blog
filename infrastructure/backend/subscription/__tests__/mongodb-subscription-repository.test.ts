@@ -5,6 +5,7 @@ import { MongoClient, Db } from "mongodb";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { initMemoryDb } from "../../db/db";
 import { buildMongoDbSubscriptionRepository } from "../mongodb-subscription-repository";
+import { generateId } from "../../id-generator/generate-id";
 
 let db: Db;
 let connection: MongoClient;
@@ -34,5 +35,8 @@ afterAll(async () => {
 });
 
 describe("mongodb subscription repository", () => {
-  it("should sucessfully insert an email into the db", async () => {});
+  it("should sucessfully insert an email into the db", async () => {
+    const id = generateId();
+    const email = "exemple@hotmail.fr";
+  });
 });
