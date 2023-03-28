@@ -24,19 +24,25 @@ const renderSubscriptionForm = ({
     </SubscriptionProvider>
   );
 
+const subscribe = async (email = "example@hotmail.fr") => {
+  const subscriptionInput = screen.getByLabelText("Your best email:");
+
+  await userEvent.type(subscriptionInput, email);
+
+  const submitButton = screen.getByRole("button");
+
+  await userEvent.click(submitButton);
+
+  return { subscriptionInput };
+};
+
 describe("SubscriptionForm", () => {
   it("should subscribe the user to the newsletter", async () => {
     const subscribeSpy = jest.fn();
 
     renderSubscriptionForm({ spy: subscribeSpy });
 
-    const subscriptionInput = screen.getByLabelText("Your best email:");
-
-    await userEvent.type(subscriptionInput, "example@hotmail.fr");
-
-    const submitButton = screen.getByRole("button");
-
-    await userEvent.click(submitButton);
+    await subscribe();
 
     await waitFor(() => {
       expect(subscribeSpy).toHaveBeenCalledWith("example@hotmail.fr");
@@ -51,13 +57,8 @@ describe("SubscriptionForm", () => {
 
   it("should dispaly an error notification when the subscripton goes wrong", async () => {
     renderSubscriptionForm({ isSubscriptionError: true });
-    const subscriptionInput = screen.getByLabelText("Your best email:");
 
-    await userEvent.type(subscriptionInput, "example@hotmail.fr");
-
-    const submitButton = screen.getByRole("button");
-
-    await userEvent.click(submitButton);
+    await subscribe();
 
     await waitFor(() => {
       expect(screen.getByText("Something went wrong")).toBeInTheDocument();
@@ -67,13 +68,7 @@ describe("SubscriptionForm", () => {
   it("should display an error message when the user try to submit an non valid email", async () => {
     renderSubscriptionForm({});
 
-    const subscriptionInput = screen.getByLabelText("Your best email:");
-
-    await userEvent.type(subscriptionInput, "example@hotmail");
-
-    const submitButton = screen.getByRole("button");
-
-    await userEvent.click(submitButton);
+    await subscribe("example@hotmail");
 
     expect(
       screen.getByText("Email adress should be a valid address email")
@@ -83,13 +78,7 @@ describe("SubscriptionForm", () => {
   it("should have no error message when the user submit a wrong email and try to type another email", async () => {
     renderSubscriptionForm({});
 
-    const subscriptionInput = screen.getByLabelText("Your best email:");
-
-    await userEvent.type(subscriptionInput, "example@hotmail");
-
-    const submitButton = screen.getByRole("button");
-
-    await userEvent.click(submitButton);
+    const { subscriptionInput } = await subscribe("example@hotmail");
 
     await userEvent.type(subscriptionInput, ".fr");
 
