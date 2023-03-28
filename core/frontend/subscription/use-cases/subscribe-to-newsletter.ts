@@ -1,8 +1,8 @@
 import create from "zustand/vanilla";
 import { SubscriptionGateway } from "../port/subscription-gateway";
 import { NotificationService } from "../../port/notification-service";
-import { NOTIFICATION } from "../subscription-constants";
-import { validateEmail } from "../validation/validate-email-service";
+import { NOTIFICATION } from "../../../common/subscription/subscription-constants";
+import { validateEmail } from "../../../common/subscription/validation/validate-email-service";
 
 type SubscriptionStore = {
   email: string;
