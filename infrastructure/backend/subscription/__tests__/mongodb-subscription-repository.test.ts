@@ -6,6 +6,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import { initMemoryDb } from "../../db/db";
 import { buildMongoDbSubscriptionRepository } from "../mongodb-subscription-repository";
 import { generateId } from "../../id-generator/generate-id";
+import { adaptIdForMongoDB } from "../../db/utils/adapt-data";
 
 let db: Db;
 let connection: MongoClient;
@@ -39,5 +40,9 @@ describe("mongodb subscription repository", () => {
     const id = generateId();
     const email = "exemple@hotmail.fr";
     await subscriptionRepository.subscribeBlogReader({ email, id });
+    expect(await db.collection("emails").findOne({ email })).toEqual({
+      _id: adaptIdForMongoDB(id),
+      email,
+    });
   });
 });
