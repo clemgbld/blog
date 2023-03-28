@@ -5,20 +5,30 @@ import { notificationService } from "../../../../infrastructure/frontend/notific
 import SubscriptionForm from "../SubscriptionForm";
 import { SubscriptionProvider } from "../../../../providers/SubscriptionProvider";
 
+const renderSubscriptionForm = ({
+  spy,
+  isSubscriptionError,
+}: {
+  spy?: jest.Mock<any, any>;
+  isSubscriptionError?: boolean;
+}) =>
+  render(
+    <SubscriptionProvider
+      notificationService={notificationService}
+      subscriptionGateway={buildInMemorySubscriptionGateway({
+        spy,
+        isSubscriptionError,
+      })}
+    >
+      <SubscriptionForm />
+    </SubscriptionProvider>
+  );
+
 describe("SubscriptionForm", () => {
   it("should subscribe the user to the newsletter", async () => {
     const subscribeSpy = jest.fn();
 
-    render(
-      <SubscriptionProvider
-        notificationService={notificationService}
-        subscriptionGateway={buildInMemorySubscriptionGateway({
-          spy: subscribeSpy,
-        })}
-      >
-        <SubscriptionForm />
-      </SubscriptionProvider>
-    );
+    renderSubscriptionForm({ spy: subscribeSpy });
 
     const subscriptionInput = screen.getByLabelText("Your best email:");
 
@@ -40,16 +50,7 @@ describe("SubscriptionForm", () => {
   });
 
   it("should dispaly an error notification when the subscripton goes wrong", async () => {
-    render(
-      <SubscriptionProvider
-        notificationService={notificationService}
-        subscriptionGateway={buildInMemorySubscriptionGateway({
-          isSubscriptionError: true,
-        })}
-      >
-        <SubscriptionForm />
-      </SubscriptionProvider>
-    );
+    renderSubscriptionForm({ isSubscriptionError: true });
     const subscriptionInput = screen.getByLabelText("Your best email:");
 
     await userEvent.type(subscriptionInput, "example@hotmail.fr");
@@ -64,14 +65,7 @@ describe("SubscriptionForm", () => {
   });
 
   it("should display an error message when the user try to submit an non valid email", async () => {
-    render(
-      <SubscriptionProvider
-        notificationService={notificationService}
-        subscriptionGateway={buildInMemorySubscriptionGateway({})}
-      >
-        <SubscriptionForm />
-      </SubscriptionProvider>
-    );
+    renderSubscriptionForm({});
 
     const subscriptionInput = screen.getByLabelText("Your best email:");
 
@@ -87,14 +81,7 @@ describe("SubscriptionForm", () => {
   });
 
   it("should have no error message when the user submit a wrong email and try to type another email", async () => {
-    render(
-      <SubscriptionProvider
-        notificationService={notificationService}
-        subscriptionGateway={buildInMemorySubscriptionGateway({})}
-      >
-        <SubscriptionForm />
-      </SubscriptionProvider>
-    );
+    renderSubscriptionForm({});
 
     const subscriptionInput = screen.getByLabelText("Your best email:");
 
