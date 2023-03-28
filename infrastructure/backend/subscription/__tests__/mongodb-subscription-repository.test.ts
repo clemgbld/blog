@@ -38,5 +38,6 @@ describe("mongodb subscription repository", () => {
   it("should sucessfully insert an email into the db", async () => {
     const id = generateId();
     const email = "exemple@hotmail.fr";
+    await subscriptionRepository.subscribeBlogReader({ email, id });
   });
 });
