@@ -6,7 +6,7 @@ import { Article } from "../../core/backend/articles/entities/articles";
 import ArticleCard from "./ArticleCard/ArticleCard";
 import Tag from "./Tag/Tag";
 import PaginationFooter from "./PaginationFooter/PaginationFooter";
-import { buildInMemorySubscriptionGateway } from "../../infrastructure/frontend/subscription/in-memory-subscription-gateway";
+import { buildSubscriptionGateway } from "../../infrastructure/frontend/subscription/subscription-gateway";
 import { notificationService } from "../../infrastructure/frontend/notification/notification-service";
 import { SubscriptionProvider } from "../../providers/SubscriptionProvider";
 import SubscriptionForm from "./SubscriptionForm/SubscriptionForm";
@@ -108,7 +108,7 @@ const Home: FC<HomeProps> = ({
 
         <SubscriptionProvider
           notificationService={notificationService}
-          subscriptionGateway={buildInMemorySubscriptionGateway({})}
+          subscriptionGateway={buildSubscriptionGateway()}
         >
           <SubscriptionForm />
         </SubscriptionProvider>
