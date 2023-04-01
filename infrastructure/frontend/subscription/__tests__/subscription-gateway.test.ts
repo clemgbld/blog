@@ -1,10 +1,4 @@
-import {
-  rest,
-  RestRequest,
-  ResponseComposition,
-  DefaultBodyType,
-  RestContext,
-} from "msw";
+import { rest, RestRequest } from "msw";
 import { setupServer } from "msw/node";
 import { buildSubscriptionGateway } from "../subscription-gateway";
 import "isomorphic-fetch";
@@ -18,7 +12,7 @@ const server = setupServer(
     `${API_ENDPOINT}${SUBSCRIPTION_GATEWAY_ENDPOINT}`,
     (req, res, ctx) => {
       request = req;
-      return res(ctx.status(201));
+      return res(ctx.status(201), ctx.json({}));
     }
   )
 );
@@ -36,10 +30,31 @@ afterAll(() => {
 });
 
 describe("subscription gateway", () => {
+  const email = "email@example.com";
   it("should successfully subscribe the blog reader to the news letter", async () => {
-    const email = "email@example.com";
     const subscriptionGateway = buildSubscriptionGateway();
     await subscriptionGateway.subscribe(email);
     expect(await request.json()).toEqual({ email });
+  });
+
+  it("should handle errors", async () => {
+    server.use(
+      rest.post(
+        `${API_ENDPOINT}${SUBSCRIPTION_GATEWAY_ENDPOINT}`,
+        (req, res, ctx) => {
+          request = req;
+          return res(
+            ctx.status(400),
+            ctx.json({ message: "Something went wrong!" })
+          );
+        }
+      )
+    );
+
+    const subscriptionGateway = buildSubscriptionGateway();
+
+    await expect(
+      async () => await subscriptionGateway.subscribe(email)
+    ).rejects.toThrowError("Something went wrong!");
   });
 });

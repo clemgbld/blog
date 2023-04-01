@@ -5,7 +5,7 @@ import { REST_METHODS } from "../rest-service/rest-service-constants";
 
 export const buildSubscriptionGateway = (): SubscriptionGateway => ({
   subscribe: async (email: string) => {
-    await fetch(`${API_ENDPOINT}${SUBSCRIPTION_GATEWAY_ENDPOINT}`, {
+    const res = await fetch(`${API_ENDPOINT}${SUBSCRIPTION_GATEWAY_ENDPOINT}`, {
       method: REST_METHODS.POST,
       headers: {
         "Content-Type": "application/json",
@@ -13,5 +13,9 @@ export const buildSubscriptionGateway = (): SubscriptionGateway => ({
       },
       body: JSON.stringify({ email }),
     });
+
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.message);
   },
 });
