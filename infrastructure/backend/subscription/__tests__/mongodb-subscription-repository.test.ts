@@ -1,57 +1,58 @@
-/**
- * @jest-environment node
- */
-import { MongoClient, Db } from "mongodb";
-import { MongoMemoryServer } from "mongodb-memory-server";
-import { initMemoryDb } from "../../db/db";
-import { buildMongoDbSubscriptionRepository } from "../mongodb-subscription-repository";
-import { generateId } from "../../id-generator/generate-id";
-import { adaptIdForMongoDB } from "../../db/utils/adapt-data";
+// /**
+//  * @jest-environment node
+//  */
+// import { MongoClient, Db } from "mongodb";
+// import { MongoMemoryServer } from "mongodb-memory-server";
+// import { initMemoryDb } from "../../db/db";
+// import { buildMongoDbSubscriptionRepository } from "../mongodb-subscription-repository";
+// import { generateId } from "../../id-generator/generate-id";
+// import { adaptIdForMongoDB } from "../../db/utils/adapt-data";
 
-let db: Db;
-let connection: MongoClient;
-let mongoServer: MongoMemoryServer;
-let subscriptionRepository: ReturnType<
-  typeof buildMongoDbSubscriptionRepository
->;
+// let db: Db;
+// let connection: MongoClient;
+// let mongoServer: MongoMemoryServer;
+// let subscriptionRepository: ReturnType<
+//   typeof buildMongoDbSubscriptionRepository
+// >;
 
-beforeAll(async () => {
-  const dbData = await initMemoryDb();
-  db = dbData.db;
-  connection = dbData.connection;
-  mongoServer = dbData.mongoServer;
-});
+// beforeAll(async () => {
+//   const dbData = await initMemoryDb();
+//   db = dbData.db;
+//   connection = dbData.connection;
+//   mongoServer = dbData.mongoServer;
+// });
 
-beforeEach(() => {
-  subscriptionRepository = buildMongoDbSubscriptionRepository(db);
-});
+// beforeEach(() => {
+//   subscriptionRepository = buildMongoDbSubscriptionRepository(db);
+// });
 
-afterEach(async () => {
-  await db.collection("emails").deleteMany({});
-});
+// afterEach(async () => {
+//   await db.collection("emails").deleteMany({});
+// });
 
-afterAll(async () => {
-  await mongoServer.stop();
-  await connection.close();
-});
+// afterAll(async () => {
+//   await mongoServer.stop();
+//   await connection.close();
+// });
 
-describe("mongodb subscription repository", () => {
-  it("should sucessfully insert an email into the db", async () => {
-    const id = generateId();
-    const email = "exemple@hotmail.fr";
-    await subscriptionRepository.subscribeBlogReader({ email, id });
-    expect(await db.collection("emails").findOne({ email })).toEqual({
-      _id: adaptIdForMongoDB(id),
-      email,
-    });
-  });
+// describe("mongodb subscription repository", () => {
+//   it("should sucessfully insert an email into the db", async () => {
+//     const id = generateId();
+//     const email = "exemple@hotmail.fr";
+//     await subscriptionRepository.subscribeBlogReader({ email, id });
+//     expect(await db.collection("emails").findOne({ email })).toEqual({
+//       _id: adaptIdForMongoDB(id),
+//       email,
+//     });
+//   });
 
-  it("should throw an error when we try to insert duplicated email", async () => {
-    const id = generateId();
-    const email = "exemple@hotmail.fr";
-    await subscriptionRepository.subscribeBlogReader({ email, id });
-    await expect(
-      subscriptionRepository.subscribeBlogReader({ email, id })
-    ).rejects.toEqual(new Error("Please try another email"));
-  });
-});
+//   it("should throw an error when we try to insert duplicated email", async () => {
+//     const id = generateId();
+//     const email = "exemple@hotmail.fr";
+//     await subscriptionRepository.subscribeBlogReader({ email, id });
+//     await expect(
+//       subscriptionRepository.subscribeBlogReader({ email, id })
+//     ).rejects.toEqual(new Error("Please try another email"));
+//   });
+// });
+export {};

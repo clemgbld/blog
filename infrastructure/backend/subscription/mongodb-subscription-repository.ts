@@ -1,7 +1,8 @@
 import { Db, MongoError } from "mongodb";
 import { Email } from "../../../core/backend/subscription/entities/email";
 import { SubscriptonRepository } from "../../../core/backend/subscription/repositories/supscription-repository";
-import { adaptDataForMongoDb } from "../articles/__tests__/mongodb-articles-repository.test";
+import { adaptDataForMongoDb } from "../db/utils/adapt-data";
+
 import { DB_COLLECTIONS } from "../db/db-constants";
 import { ERROR_MESSAGES } from "../../../core/common/subscription/subscription-constants";
 
