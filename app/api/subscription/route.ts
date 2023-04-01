@@ -4,6 +4,7 @@ import { generateId } from "../../../infrastructure/backend/id-generator/generat
 import { buildMongoDbSubscriptionRepository } from "../../../infrastructure/backend/subscription/mongodb-subscription-repository";
 import { subscribeToNewsletter } from "../../../core/backend/subscription/use-cases/subscribe-to-newsletter";
 import { object, string } from "zod";
+import { mapErrorToHttpStatus } from "./map-error-to-http-status";
 
 const emailSchema = object({
   email: string(),
@@ -25,7 +26,10 @@ export async function POST(req: NextRequest) {
     return new Response(null, { status: 201 });
   } catch (err) {
     if (err instanceof Error) {
-      return new Response(null, { status: 400, statusText: err.message });
+      return new Response(null, {
+        status: mapErrorToHttpStatus(err.message),
+        statusText: err.message,
+      });
     }
   }
 }

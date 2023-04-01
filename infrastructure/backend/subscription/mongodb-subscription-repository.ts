@@ -3,8 +3,7 @@ import { Email } from "../../../core/backend/subscription/entities/email";
 import { SubscriptonRepository } from "../../../core/backend/subscription/repositories/supscription-repository";
 import { adaptDataForMongoDb } from "../articles/__tests__/mongodb-articles-repository.test";
 import { DB_COLLECTIONS } from "../db/db-constants";
-
-const DUPLICATED_EMAIL_ERROR_MESSAGE = "Please try another email";
+import { ERROR_MESSAGES } from "../../../core/common/subscription/subscription-constants";
 
 export const buildMongoDbSubscriptionRepository = (
   db: Db
@@ -16,7 +15,7 @@ export const buildMongoDbSubscriptionRepository = (
       await colletction.insertOne(adaptDataForMongoDb(email));
     } catch (err) {
       if (err instanceof MongoError) {
-        throw new Error(DUPLICATED_EMAIL_ERROR_MESSAGE);
+        throw new Error(ERROR_MESSAGES.DUPLICATED);
       }
     }
   },
