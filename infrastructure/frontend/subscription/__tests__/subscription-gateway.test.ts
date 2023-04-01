@@ -6,6 +6,8 @@ import {
   RestContext,
 } from "msw";
 import { setupServer } from "msw/node";
+import { buildSubscriptionGateway } from "../subscription-gateway";
+import "isomorphic-fetch";
 
 let request: RestRequest;
 
@@ -29,5 +31,10 @@ afterAll(() => {
 });
 
 describe("subscription gateway", () => {
-  it("should ", () => {});
+  it("should sucess fully subscribe the blog reader to the news letter", async () => {
+    const email = "email@example.com";
+    const subscriptionGateway = buildSubscriptionGateway();
+    await subscriptionGateway.subscribe(email);
+    expect(await request.json()).toEqual({ email });
+  });
 });
