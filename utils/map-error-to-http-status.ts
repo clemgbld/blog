@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from "../../core/common/subscription/subscription-constants";
+import { ERROR_MESSAGES } from "../core/common/subscription/subscription-constants";
 
 const DEFAUL_HTTP_ERRO_CODE = 500;
 

@@ -3,7 +3,7 @@ import { generateId } from "../../infrastructure/backend/id-generator/generate-i
 import { buildMongoDbSubscriptionRepository } from "../../infrastructure/backend/subscription/mongodb-subscription-repository";
 import { subscribeToNewsletter } from "../../core/backend/subscription/use-cases/subscribe-to-newsletter";
 import { object, string } from "zod";
-import { mapErrorToHttpStatus } from "../utils/map-error-to-http-status";
+import { mapErrorToHttpStatus } from "../../utils/map-error-to-http-status";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const emailSchema = object({
