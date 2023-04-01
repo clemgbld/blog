@@ -1,6 +1,5 @@
-import clientPromise from "../../infrastructure/backend/db/mongodb";
 import { generateId } from "../../infrastructure/backend/id-generator/generate-id";
-import { buildMongoDbSubscriptionRepository } from "../../infrastructure/backend/subscription/mongodb-subscription-repository";
+import { buildSubscriptionRepository } from "../../infrastructure/backend/db/build-subscription-repository";
 import { subscribeToNewsletter } from "../../core/backend/subscription/use-cases/subscribe-to-newsletter";
 import { object, string } from "zod";
 import { mapErrorToHttpStatus } from "../../utils/map-error-to-http-status";
@@ -20,9 +19,7 @@ export default async function hanlder(
   const checkedBody = emailSchema.safeParse(req.body);
   const email = checkedBody.success ? req.body.email : "";
   try {
-    const client = await clientPromise;
-    const db = client.db(process.env.DB_NAME);
-    const subscriptionRepository = buildMongoDbSubscriptionRepository(db);
+    const subscriptionRepository = await buildSubscriptionRepository();
     await subscribeToNewsletter({
       subscriptionRepository,
       email,
