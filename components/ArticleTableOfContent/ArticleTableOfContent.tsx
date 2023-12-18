@@ -16,6 +16,7 @@ const ArticleTableOfContent = ({ article }: { article: Article }) => {
             to={link}
             smooth
             duration={300}
+            href="#"
           >
             {`- ${link}`}
           </Link>
