@@ -92,4 +92,127 @@ describe("shycronise pagination with other filter", () => {
   it("stay at the same page when the current page is one", () => {
     expect(shycronisePaginationWithOtherFilters([], 1)).toBe(1);
   });
+
+  it("should select the articles ", () => {
+    expect(
+      selectArticlesOnPage(1, 10, [
+        articleBuilder({ id: 1 }),
+        articleBuilder({ id: 2 }),
+        articleBuilder({ id: 3 }),
+        articleBuilder({ id: 4 }),
+        articleBuilder({ id: 5 }),
+        articleBuilder({ id: 6 }),
+        articleBuilder({ id: 7 }),
+        articleBuilder({ id: 8 }),
+        articleBuilder({ id: 9 }),
+        articleBuilder({ id: 10 }),
+        articleBuilder({ id: 11 }),
+      ])
+    ).toEqual([
+      articleBuilder({ id: 1 }),
+      articleBuilder({ id: 2 }),
+      articleBuilder({ id: 3 }),
+      articleBuilder({ id: 4 }),
+      articleBuilder({ id: 5 }),
+      articleBuilder({ id: 6 }),
+      articleBuilder({ id: 7 }),
+      articleBuilder({ id: 8 }),
+      articleBuilder({ id: 9 }),
+      articleBuilder({ id: 10 }),
+    ]);
+
+    expect(
+      selectArticlesOnPage(2, 10, [
+        articleBuilder({ id: 1 }),
+        articleBuilder({ id: 2 }),
+        articleBuilder({ id: 3 }),
+        articleBuilder({ id: 4 }),
+        articleBuilder({ id: 5 }),
+        articleBuilder({ id: 6 }),
+        articleBuilder({ id: 7 }),
+        articleBuilder({ id: 8 }),
+        articleBuilder({ id: 9 }),
+        articleBuilder({ id: 10 }),
+        articleBuilder({ id: 11 }),
+      ])
+    ).toEqual([articleBuilder({ id: 11 })]);
+
+    expect(
+      selectArticlesOnPage(2, 10, [
+        articleBuilder({ id: 1 }),
+        articleBuilder({ id: 2 }),
+        articleBuilder({ id: 3 }),
+        articleBuilder({ id: 4 }),
+        articleBuilder({ id: 5 }),
+        articleBuilder({ id: 6 }),
+        articleBuilder({ id: 7 }),
+        articleBuilder({ id: 8 }),
+        articleBuilder({ id: 9 }),
+        articleBuilder({ id: 10 }),
+        articleBuilder({ id: 11 }),
+        articleBuilder({ id: 12 }),
+        articleBuilder({ id: 13 }),
+        articleBuilder({ id: 14 }),
+        articleBuilder({ id: 15 }),
+      ])
+    ).toEqual([
+      articleBuilder({ id: 11 }),
+      articleBuilder({ id: 12 }),
+      articleBuilder({ id: 13 }),
+      articleBuilder({ id: 14 }),
+      articleBuilder({ id: 15 }),
+    ]);
+
+    expect(
+      selectArticlesOnPage(2, 5, [
+        articleBuilder({ id: 1 }),
+        articleBuilder({ id: 2 }),
+        articleBuilder({ id: 3 }),
+        articleBuilder({ id: 4 }),
+        articleBuilder({ id: 5 }),
+        articleBuilder({ id: 6 }),
+        articleBuilder({ id: 7 }),
+        articleBuilder({ id: 8 }),
+        articleBuilder({ id: 9 }),
+        articleBuilder({ id: 10 }),
+        articleBuilder({ id: 11 }),
+        articleBuilder({ id: 12 }),
+        articleBuilder({ id: 13 }),
+        articleBuilder({ id: 14 }),
+        articleBuilder({ id: 15 }),
+      ])
+    ).toEqual([
+      articleBuilder({ id: 6 }),
+      articleBuilder({ id: 7 }),
+      articleBuilder({ id: 8 }),
+      articleBuilder({ id: 9 }),
+      articleBuilder({ id: 10 }),
+    ]);
+
+    expect(
+      selectArticlesOnPage(3, 5, [
+        articleBuilder({ id: 1 }),
+        articleBuilder({ id: 2 }),
+        articleBuilder({ id: 3 }),
+        articleBuilder({ id: 4 }),
+        articleBuilder({ id: 5 }),
+        articleBuilder({ id: 6 }),
+        articleBuilder({ id: 7 }),
+        articleBuilder({ id: 8 }),
+        articleBuilder({ id: 9 }),
+        articleBuilder({ id: 10 }),
+        articleBuilder({ id: 11 }),
+        articleBuilder({ id: 12 }),
+        articleBuilder({ id: 13 }),
+        articleBuilder({ id: 14 }),
+        articleBuilder({ id: 15 }),
+      ])
+    ).toEqual([
+      articleBuilder({ id: 11 }),
+      articleBuilder({ id: 12 }),
+      articleBuilder({ id: 13 }),
+      articleBuilder({ id: 14 }),
+      articleBuilder({ id: 15 }),
+    ]);
+  });
 });
