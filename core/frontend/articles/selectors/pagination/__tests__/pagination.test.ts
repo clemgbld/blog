@@ -58,42 +58,7 @@ describe("select articles on a given page", () => {
     ).toEqual([articleBuilder({ id: 3 })]);
   });
 
-  it("should pass the acceptance test", () => {
-    expect(
-      selectArticlesOnPage(1, 2, [
-        articleBuilder({ id: 1 }),
-        articleBuilder({ id: 2 }),
-        articleBuilder({ id: 3 }),
-        articleBuilder({ id: 4 }),
-      ])
-    ).toEqual([articleBuilder({ id: 1 }), articleBuilder({ id: 2 })]);
-  });
-});
-
-describe("shycronise pagination with other filter", () => {
-  it("should stay at the same page when there is articles in it", () => {
-    expect(
-      shycronisePaginationWithOtherFilters(
-        [
-          articleBuilder({ id: 1 }),
-          articleBuilder({ id: 2 }),
-          articleBuilder({ id: 3 }),
-          articleBuilder({ id: 4 }),
-        ],
-        3
-      )
-    ).toBe(3);
-  });
-
-  it("should go to the previous page when there is no articles in the current page", () => {
-    expect(shycronisePaginationWithOtherFilters([], 3)).toBe(2);
-  });
-
-  it("stay at the same page when the current page is one", () => {
-    expect(shycronisePaginationWithOtherFilters([], 1)).toBe(1);
-  });
-
-  it("should select the articles ", () => {
+  it("should pass the acceptance tests", () => {
     expect(
       selectArticlesOnPage(1, 10, [
         articleBuilder({ id: 1 }),
@@ -214,5 +179,29 @@ describe("shycronise pagination with other filter", () => {
       articleBuilder({ id: 14 }),
       articleBuilder({ id: 15 }),
     ]);
+  });
+});
+
+describe("shycronise pagination with other filter", () => {
+  it("should stay at the same page when there is articles in it", () => {
+    expect(
+      shycronisePaginationWithOtherFilters(
+        [
+          articleBuilder({ id: 1 }),
+          articleBuilder({ id: 2 }),
+          articleBuilder({ id: 3 }),
+          articleBuilder({ id: 4 }),
+        ],
+        3
+      )
+    ).toBe(3);
+  });
+
+  it("should go to the previous page when there is no articles in the current page", () => {
+    expect(shycronisePaginationWithOtherFilters([], 3)).toBe(2);
+  });
+
+  it("stay at the same page when the current page is one", () => {
+    expect(shycronisePaginationWithOtherFilters([], 1)).toBe(1);
   });
 });
