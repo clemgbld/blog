@@ -1,5 +1,6 @@
 "use client";
 import { FC } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 
@@ -55,6 +56,7 @@ const Header: FC<HeaderProps> = ({ children }) => {
         </nav>
       </header>
       {children}
+      <Analytics />
     </>
   );
 };
