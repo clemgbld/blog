@@ -10,6 +10,10 @@ import Header from "../../common/Header/Header";
 import { useSearchStore } from "../../../hooks/useSearchStore";
 import { ARTICLES_PER_PAGE } from "../../../core/frontend/articles/selectors/pagination/pagination";
 
+jest.mock("@vercel/analytics/react", () => ({
+  Analytics: () => <div />,
+}));
+
 jest.mock("next/navigation", () => ({
   usePathname: () => "/",
 }));

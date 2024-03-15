@@ -3,6 +3,10 @@ import { render, screen } from "@testing-library/react";
 import Header from "../Header";
 import * as hooks from "next/navigation";
 
+jest.mock("@vercel/analytics/react", () => ({
+  Analytics: () => <div />,
+}));
+
 describe("Header", () => {
   const renderHeader = () => {
     render(
